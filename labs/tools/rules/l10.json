@@ -1,0 +1,11 @@
+{
+  "lecture": "10",
+  "clips": ["L10-C1", "L10-C2", "L10-C3"],
+  "required": [
+    { "path": "docs/prompts/test-generation.md" },
+    { "path": "docs/prompts/pr-description.md" },
+    { "path": "docs/prompts/self-review.md" }
+  ],
+  "optional": [],
+  "runAppChecks": false
+}

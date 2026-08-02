@@ -1,0 +1,9 @@
+{
+  "lecture": "04",
+  "clips": ["L04-C1", "L04-C2", "L04-C3", "L04-C4"],
+  "required": [
+    { "path": "AGENTS.md", "headings": ["## Project Overview", "## Before Editing", "## Commands", "## Rules", "## Before Final Response"] }
+  ],
+  "optional": [],
+  "runAppChecks": false
+}

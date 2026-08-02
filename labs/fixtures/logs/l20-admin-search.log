@@ -1,0 +1,4 @@
+2026-08-02T01:12:10.104Z route=/admin/orders order_id=ord-retry-017 payment_attempts=2 failed_attempts=1 order_status=paid display_status=결제실패
+2026-08-02T01:13:42.229Z route=/admin/orders order_id=ord-retry-021 payment_attempts=3 failed_attempts=2 order_status=paid display_status=결제실패
+2026-08-02T01:15:09.813Z route=/orders/ord-retry-017 order_status=paid http_status=200
+2026-08-02T01:15:12.006Z route=/admin/orders order_id=ord-retry-017 order_status=paid display_status=결제실패 mismatch=true

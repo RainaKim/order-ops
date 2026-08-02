@@ -1,0 +1,11 @@
+{
+  "lecture": "14",
+  "clips": ["L14-C1", "L14-C2", "L14-C3", "L14-C4"],
+  "required": [
+    { "path": "notes/assertion-review-l14.md", "headings": ["## 핵심 케이스", "## Red-Green 기록", "## Assertion 비교", "## 실행 결과"] },
+    { "path": "tests/payments.test.ts" },
+    { "path": "tests/admin.test.ts" }
+  ],
+  "optional": [],
+  "runAppChecks": true
+}

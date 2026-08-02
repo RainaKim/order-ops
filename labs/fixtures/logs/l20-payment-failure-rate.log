@@ -1,0 +1,5 @@
+2026-08-02T01:00:00.000Z metric=payment_attempts total=120 failed=9 failure_rate=0.075
+2026-08-02T01:05:00.000Z metric=payment_attempts total=118 failed=10 failure_rate=0.085
+2026-08-02T01:10:00.000Z metric=payment_attempts total=126 failed=24 failure_rate=0.190 alert=threshold_exceeded
+2026-08-02T01:15:00.000Z metric=payment_attempts total=121 failed=26 failure_rate=0.215 alert=threshold_exceeded
+2026-08-02T01:20:00.000Z metric=payment_attempts total=124 failed=25 failure_rate=0.202 alert=threshold_exceeded

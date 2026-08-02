@@ -1,0 +1,11 @@
+{
+  "lecture": "02",
+  "clips": ["L02-C1", "L02-C2", "L02-C3", "L02-C4"],
+  "required": [
+    { "path": "notes/order-status-request.md", "headings": ["## 요청 원문", "## 확인된 사실", "## 추정"] },
+    { "path": "notes/pending-decisions.md", "headings": ["## 결정이 필요한 질문"], "minItems": 3 },
+    { "path": "notes/next-actions.md", "headings": ["## 다음 작업"], "minItems": 1 }
+  ],
+  "optional": [],
+  "runAppChecks": false
+}

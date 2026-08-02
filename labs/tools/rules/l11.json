@@ -1,0 +1,10 @@
+{
+  "lecture": "11",
+  "clips": ["L11-C1", "L11-C2", "L11-C3", "L11-C4"],
+  "required": [
+    { "path": "notes/session-handoff.md", "headings": ["## 완료", "## 미완료", "## 현재 상태", "## 다음 입력", "## 사람 결정", "## 검증 결과"] }
+  ],
+  "optional": [],
+  "runAppChecks": false,
+  "cleanWorktreePaths": ["src", "tests"]
+}

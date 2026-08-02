@@ -1,0 +1,11 @@
+{
+  "lecture": "12",
+  "clips": ["L12-C1", "L12-C2", "L12-C3", "L12-C4"],
+  "required": [
+    { "path": "notes/diff-review-l12.md", "headings": ["## 계획 대비 Diff", "## Scope guard 판단", "## 검증 결과"] }
+  ],
+  "optional": [
+    { "path": "notes/plans/l12-inventory-after-payment.md", "headings": ["## Goal", "## Files to Change", "## Files to Read First", "## Steps", "## Tests to Add or Update", "## Risks", "## Out of Scope", "## Stop Conditions"] }
+  ],
+  "runAppChecks": true
+}

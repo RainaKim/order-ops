@@ -1,0 +1,11 @@
+{
+  "lecture": "08",
+  "clips": ["L08-C1", "L08-C2", "L08-C3"],
+  "required": [
+    { "path": ".github/ISSUE_TEMPLATE/workflow-task.md", "headings": ["## Summary", "## Context", "## Current Behavior", "## Expected Behavior", "## Scope", "## Out of Scope", "## Acceptance Criteria", "## Human Decision Needed", "## References"] }
+  ],
+  "optional": [
+    { "path": "notes/issue-draft-l08.md" }
+  ],
+  "runAppChecks": false
+}

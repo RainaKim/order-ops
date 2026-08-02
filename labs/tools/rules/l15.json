@@ -1,0 +1,10 @@
+{
+  "lecture": "15",
+  "clips": ["L15-C1", "L15-C2", "L15-C3"],
+  "required": [
+    { "path": "docs/checklists/failure-handling.md", "minItems": 6 },
+    { "path": "docs/retry-stop-matrix.md", "headings": ["## Retry/Stop 기준"] }
+  ],
+  "optional": [],
+  "runAppChecks": true
+}

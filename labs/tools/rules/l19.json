@@ -1,0 +1,10 @@
+{
+  "lecture": "19",
+  "clips": ["L19-C1", "L19-C2", "L19-C3", "L19-C4"],
+  "required": [
+    { "path": "docs/automation/candidates.md", "headings": ["## Input", "## Output", "## Run Condition", "## Stop Condition", "## Human Approval", "## Failure Alert"] },
+    { "path": "docs/automation/stop-conditions.md", "minItems": 5 }
+  ],
+  "optional": [],
+  "runAppChecks": true
+}

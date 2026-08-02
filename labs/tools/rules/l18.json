@@ -1,0 +1,10 @@
+{
+  "lecture": "18",
+  "clips": ["L18-C1", "L18-C2", "L18-C3", "L18-C4"],
+  "required": [
+    { "path": "docs/prompts/issue-kickoff.md" }
+  ],
+  "optional": [],
+  "runAppChecks": true,
+  "externalChecks": ["GitHub Issue 등록 여부는 사람이 확인합니다."]
+}

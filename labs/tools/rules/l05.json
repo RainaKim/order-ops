@@ -1,0 +1,10 @@
+{
+  "lecture": "05",
+  "clips": ["L05-C1", "L05-C2", "L05-C3", "L05-C4"],
+  "required": [
+    { "path": "notes/order-status-plan.md", "headings": ["## 관련 파일 후보", "## 현재 동작", "## 수정 범위", "## 제외 범위", "## 테스트·검증 계획"] }
+  ],
+  "optional": [],
+  "runAppChecks": false,
+  "cleanWorktreePaths": ["src", "tests"]
+}
