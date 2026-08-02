@@ -1,0 +1,50 @@
+export type OrderStatus = 'pending' | 'paid' | 'cancelled';
+
+export interface Product {
+  id: string;
+  name: string;
+  priceKrw: number;
+  stock: number;
+}
+
+export interface OrderItem {
+  productId: string;
+  quantity: number;
+}
+
+export interface Order {
+  id: string;
+  items: OrderItem[];
+  totalKrw: number;
+  status: OrderStatus;
+  createdAt: string;
+}
+
+export interface PaymentAttempt {
+  orderId: string;
+  ok: boolean;
+  amountKrw: number;
+  at: string;
+}
+
+const seedProducts: Product[] = [
+  { id: 'keyboard', name: '키보드', priceKrw: 49_000, stock: 5 },
+  { id: 'mouse', name: '마우스', priceKrw: 23_000, stock: 10 },
+  { id: 'monitor', name: '모니터', priceKrw: 310_000, stock: 2 },
+];
+
+export const products = new Map<string, Product>();
+export const orders = new Map<string, Order>();
+export const paymentAttempts: PaymentAttempt[] = [];
+
+export function resetStore(): void {
+  products.clear();
+  orders.clear();
+  paymentAttempts.length = 0;
+
+  for (const product of seedProducts) {
+    products.set(product.id, { ...product });
+  }
+}
+
+resetStore();
