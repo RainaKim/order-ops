@@ -1,6 +1,5 @@
 {
   "lecture": "09",
-  "clips": ["L09-C1", "L09-C2", "L09-C3", "L09-C4"],
   "required": [
     { "path": "docs/templates/implementation-plan.md", "headings": ["## Goal", "## Files to Change", "## Files to Read First", "## Steps", "## Tests to Add or Update", "## Risks", "## Out of Scope", "## Stop Conditions"] }
   ],

@@ -13,13 +13,14 @@
 - `.github/`는 아직 없어야 합니다.
 - 입력은 `labs/lecture08/inputs/bad-issue-sample.md`입니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L08-C1 | 완료 기준 없는 이슈가 곧바로 구현으로 흘러가는 이유 | 12분 | 신규 파일 없음, 진단 결과 | 없음 | E1 |
-| L08-C2 | 작업 가능한 이슈의 아홉 개 필드 — Out of Scope와 Human Decision Needed까지 | 14분 | `.github/ISSUE_TEMPLATE/workflow-task.md` | 없음 | E2, E3 |
-| L08-C3 | 애매한 요청 하나를 실제 이슈로 바꿔보기 | 14분 | `notes/issue-draft-l08.md` | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 모호한 Issue에서 작업에 필요한 정보가 무엇인지 진단합니다. | 나쁜 Issue의 누락 항목 목록 |
+| E2 | 작업 가능한 Issue의 아홉 필드를 설계합니다. | `.github/ISSUE_TEMPLATE/workflow-task.md` |
+| E3 | Acceptance Criteria가 판정 가능한지 점검합니다. | 같은 template의 완료 기준 |
+| E4 | 제공 입력을 template 구조의 실제 초안으로 바꿉니다. | `notes/issue-draft-l08.md`와 완료 커밋 |
 
 ## 3. 실습
 
@@ -100,10 +101,10 @@ node labs/tools/check.mjs 08
 
 ## 5. 흔한 함정
 
-- `.github/`를 8강 이전 체크포인트에 소급해 넣습니다.
+- Lab 08을 시작하기 전에 `.github/`를 미리 만들어 시작 상태를 바꿉니다.
 - template과 실제 Issue 초안의 역할을 섞습니다.
 - 완료 기준에 구현 방법을 고정해 계획 단계의 선택지를 없앱니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-Issue template은 9강 구현 계획의 입력 형식을 고정합니다. `notes/issue-draft-l08.md`는 계획 template을 시험하는 첫 요청으로 사용합니다.
+Issue template은 Lab 09 구현 계획의 입력 형식을 고정합니다. `notes/issue-draft-l08.md`는 계획 template을 시험하는 첫 요청으로 사용합니다.

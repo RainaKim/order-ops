@@ -9,18 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- 2~10강의 필수 산출물이 모두 있어야 합니다.
+- Lab 02~10의 필수 산출물이 모두 있어야 합니다.
 - `src/`, `tests/`는 v0이며 코드 변경이 없어야 합니다.
 - `node labs/tools/check.mjs 10`에서 누락 파일이 없어야 합니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L11-C1 | P2 시작 — 기준 문서 풀세트가 제자리에 있는지 점검하기 | 13분 | 배치와 참조 교정, 신규 파일 없음 | 없음 | E1 |
-| L11-C2 | P2 · 새 세션을 열었을 때 Codex는 무엇부터 읽는가 | 14분 | root `AGENTS.md` 읽기 순서 최종화 | 없음 | E2 |
-| L11-C3 | P2 · plan 없이 구현으로 넘어가지 않는지 확인하기 | 14분 | `notes/session-handoff.md` 초안 | 없음 | E3 |
-| L11-C4 | P2 마무리 — 다음 챕터로 넘길 이슈와 session handoff 메모 | 14분 | `notes/session-handoff.md` 완성 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 정책·template·prompt·GitHub 설정의 배치와 참조를 점검합니다. | 기존 기준 문서의 정합 수정 |
+| E2 | 새 세션이 따라야 할 읽기 순서를 검증합니다. | root `AGENTS.md` 최종화 |
+| E3 | plan 승인 전에 구현이 시작되지 않는지 확인합니다. | `notes/session-handoff.md` 초안 |
+| E4 | 다음 작업의 첫 행동과 검증 상태를 넘깁니다. | 완성된 session handoff와 완료 커밋 |
 
 ## 3. 실습
 
@@ -67,7 +67,7 @@ root `AGENTS.md`에 project overview, 규약, 관련 정책, 계획 template, �
 
 #### 실행
 
-12강 입력을 미리 읽지 않은 새 세션에 범위가 넓은 요청을 주고, plan 단계에서 멈추게 합니다. 관찰 결과를 `notes/session-handoff.md` 초안에 기록합니다.
+Lab 12 입력을 미리 읽지 않은 새 세션에 범위가 넓은 요청을 주고, plan 단계에서 멈추게 합니다. 관찰 결과를 `notes/session-handoff.md` 초안에 기록합니다.
 
 #### 검증
 
@@ -80,7 +80,7 @@ root `AGENTS.md`에 project overview, 규약, 관련 정책, 계획 template, �
 #### 설계 질문
 
 - 다음 세션이 다시 탐색하지 않도록 어떤 상태를 넘겨야 하나요?
-- 12강에서 사용할 issue와 plan 연결은 어디에 남길까요?
+- Lab 12에서 사용할 issue와 plan 연결은 어디에 남길까요?
 
 #### 실행
 
@@ -89,9 +89,9 @@ root `AGENTS.md`에 project overview, 규약, 관련 정책, 계획 template, �
 #### 검증
 
 - [ ] 다음 세션의 첫 행동이 한 문장으로 정해져 있습니다.
-- [ ] 12강 issue와 plan template 경로가 연결돼 있습니다.
+- [ ] Lab 12 issue와 plan template 경로가 연결돼 있습니다.
 - [ ] 앱 코드가 v0로 유지됩니다.
-- [ ] 이 강의 커밋 수가 두 개 이하입니다.
+- [ ] 이 lab의 커밋 수가 두 개 이하입니다.
 
 ## 4. Self-check
 
@@ -105,12 +105,6 @@ node labs/tools/check.mjs 11
 - 새 세션 검증 중 실제 구현을 허용합니다.
 - handoff를 작업 요약으로만 쓰고 다음 행동을 남기지 않습니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-현재 결과를 Chapter 2 출발선과 비교할 때만 다음 명령을 사용합니다.
-
-```bash
-git diff --stat HEAD course/checkpoint/ch2 -- docs notes AGENTS.md .github
-```
-
-12강부터 처음으로 `src/`와 `tests/`가 바뀝니다.
+Lab 12부터 처음으로 `src/`와 `tests/`가 바뀝니다.

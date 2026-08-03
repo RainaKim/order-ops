@@ -9,18 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- `labs/lecture12/inputs/l12-issue.md`와 11강 handoff가 있어야 합니다.
+- `labs/lecture12/inputs/l12-issue.md`와 Lab 11 handoff가 있어야 합니다.
 - root `AGENTS.md`, 정책 문서 세 개, implementation plan template을 먼저 읽습니다.
-- `src/`, `tests/`는 v0이며 C2가 끝날 때까지 변경하지 않습니다.
+- `src/`, `tests/`는 v0이며 E2가 끝날 때까지 변경하지 않습니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L12-C1 | 드디어 코드를 고친다 — 이슈 하나를 골라 시작하기 | 10분 | `notes/plans/l12-inventory-after-payment.md`의 Goal과 Files | 없음 | E1 |
-| L12-C2 | 구현 전에 순서와 영향 범위를 먼저 적는 이유 | 12분 | 같은 plan에 순서, 영향, 테스트, 멈춤 조건을 추가하고 사람 승인 | 없음 | E2 |
-| L12-C3 | 구현하고, 바뀐 diff를 계획과 대조하기 | 12분 | 재고·실패 주문 관련 코드 변경, `notes/diff-review-l12.md` | 없음 | E3 |
-| L12-C4 | 변경이 계획보다 커졌을 때 멈추는 기준 | 11분 | diff review에 Scope guard와 검증 기록 추가 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 제공 Issue를 implementation plan으로 옮깁니다. | `notes/plans/l12-inventory-after-payment.md` |
+| E2 | 순서, 영향, 테스트, 중단 조건을 완성하고 승인을 받습니다. | 승인된 구현 계획 |
+| E3 | 승인 범위에서 구현하고 실제 diff를 계획과 대조합니다. | 코드 변경과 `notes/diff-review-l12.md` |
+| E4 | 범위 이탈 여부와 검증 결과를 기록합니다. | 완성된 diff review와 완료 커밋 |
 
 ## 3. 실습
 
@@ -104,9 +104,9 @@ node labs/tools/check.mjs 12
 ## 5. 흔한 함정
 
 - 계획 승인 전에 작은 코드 변경을 먼저 시작합니다.
-- 실패 주문 보존과 함께 `deriveDisplayStatus()`까지 고쳐 18강 VOC의 원인을 없앱니다.
+- 실패 주문 보존과 함께 `deriveDisplayStatus()`까지 고쳐 Lab 18 VOC의 원인을 없앱니다.
 - 테스트 실패를 맞추기 위해 정책을 바꿉니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-12강 코드 상태와 검증 기록은 13강 환각 패치를 식별하는 기준선입니다. `deriveDisplayStatus()`의 위험은 고치지 않고 관찰 대상으로 남깁니다.
+Lab 12 코드 상태와 검증 기록은 Lab 13 환각 패치를 식별하는 기준선입니다. `deriveDisplayStatus()`의 위험은 고치지 않고 관찰 대상으로 남깁니다.

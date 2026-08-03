@@ -9,18 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- 18강 Issue, 19강 Automation 문서, `labs/fixtures/logs/l20-*.log`가 있어야 합니다.
-- 17강 이후 관리자 응답에 실패 정보가 보이지만 표시 상태 위험은 남아 있어야 합니다.
+- Lab 18 Issue, Lab 19 Automation 문서, `labs/fixtures/logs/l20-*.log`가 있어야 합니다.
+- Lab 17 이후 관리자 응답에 실패 정보가 보이지만 표시 상태 위험은 남아 있어야 합니다.
 - 작업 트리가 깨끗하고 전체 검증이 통과해야 합니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L20-C1 | P4 시작 — 장애 상황 하나를 골라 incident note로 정리하기 | 13분 | `notes/incident-l20.md` 시나리오와 VOC 정리 | 없음 | E1 |
-| L20-C2 | P4 · 원인 후보 세 개를 만들고 하나로 좁히기 | 14분 | incident note에 원인 후보, 현재·기대, 수정·rollback·조사 판단 추가 | 없음 | E2 |
-| L20-C3 | P4 · 계획부터 검증까지 한 번에 통과시키기 | 14분 | 표시 상태 로직과 테스트 변경, `notes/pr-final-l20.md` | 없음 | E3 |
-| L20-C4 | P4 마무리 — Starter Kit으로 묶어 내 repo에 이식하기 | 14분 | starter kit과 `notes/backlog-l20.md` | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | VOC와 로그를 incident note의 확인된 사실로 정리합니다. | `notes/incident-l20.md` 초안 |
+| E2 | 원인 후보를 세 개 세우고 수정·rollback·추가 조사로 판단합니다. | 완성된 원인 분석과 대응 결정 |
+| E3 | 역할 분리로 계획·구현·review·검증을 통과시킵니다. | 표시 상태 코드·테스트와 `notes/pr-final-l20.md` |
+| E4 | 재사용 원칙과 후속 작업을 starter kit으로 묶습니다. | starter kit, backlog와 완료 커밋 |
 
 ## 3. 실습
 
@@ -95,7 +95,7 @@ planner가 승인된 plan을 만들고, implementer가 `deriveDisplayStatus()`�
 - [ ] backlog에 우선순위와 완료 조건이 있습니다.
 - [ ] Codex 작업과 사람 판단이 구분돼 있습니다.
 - [ ] v0의 네 결함이 모두 해소됐습니다.
-- [ ] 이 강의 커밋 수가 두 개 이하입니다.
+- [ ] 이 lab의 커밋 수가 두 개 이하입니다.
 
 ## 4. Self-check
 
@@ -109,12 +109,6 @@ node labs/tools/check.mjs 20
 - 과거 결제 실패 이력을 삭제해 표시 문제를 숨깁니다.
 - Starter Kit에 이번 repo의 구체 파일만 나열합니다.
 
-## 6. 다음 강으로 넘기는 것
-
-현재 결과를 최종 출발선과 비교할 때만 다음 명령을 사용합니다.
-
-```bash
-git diff --stat HEAD course/checkpoint/ch4 -- docs notes AGENTS.md .github src tests
-```
+## 6. 다음 lab으로 넘기는 것
 
 이제 starter kit과 backlog를 다음 repo에 이식하고, 남은 Automation 후보는 사람 승인과 중단 조건을 갖춘 뒤 운영합니다.

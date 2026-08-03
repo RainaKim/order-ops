@@ -2,25 +2,25 @@
 
 ## 0. 이 랩이 끝나면
 
-- 2, 4, 5강 문서 세트의 용어와 연결을 점검합니다.
+- Lab 02, 04, 05 문서 세트의 용어와 연결을 점검합니다.
 - 애매한 요청을 통과시키는 8단계 workflow 템플릿을 만듭니다.
 - Desktop App, CLI, Browser, Automation의 역할을 작업 흐름에 연결합니다.
 - 예상 소요 시간은 55분입니다.
 
 ## 1. 시작 전 상태 확인
 
-- `notes/`에 2, 3, 5강 산출물이 있어야 합니다.
+- `notes/`에 Lab 02, 03, 05 산출물이 있어야 합니다.
 - root `AGENTS.md`가 있어야 합니다.
 - `src/`, `tests/`는 여전히 v0여야 합니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L06-C1 | P1 시작 — 지금까지 만든 문서가 서로 맞는지부터 점검하기 | 13분 | 2, 4, 5강 산출물 정합 수정 | 없음 | E1 |
-| L06-C2 | P1 · 애매한 요청 하나가 통과하는 8단계 skeleton 만들기 | 14분 | `docs/templates/workflow-skeleton.md` | 없음 | E2 |
-| L06-C3 | P1 · Desktop App · CLI · Browser · Automation — 어디서 무엇을 할지 나누기 | 14분 | `notes/small-development-workflow.md` | 없음 | E3 |
-| L06-C4 | P1 마무리 — 네 가지 실패 패턴이 어떻게 줄었는지 확인하기 | 14분 | 새 파일 없음, Chapter 1 회고 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 요청·기준·계획 문서 사이의 충돌과 누락을 점검합니다. | 기존 문서의 정합 수정 |
+| E2 | 애매한 요청을 통과시키는 8단계 빈 template을 만듭니다. | `docs/templates/workflow-skeleton.md` |
+| E3 | 작업 단계별 Codex surface와 사람 확인 지점을 연결합니다. | `notes/small-development-workflow.md` |
+| E4 | 네 가지 실패 패턴과 만든 장치를 대조합니다. | Chapter 1 회고와 완료 커밋 |
 
 ## 3. 실습
 
@@ -33,7 +33,7 @@
 
 #### 실행
 
-2, 4, 5강 산출물을 나란히 읽고 요청, 결정, 범위, 검증 용어와 링크를 점검합니다. 새 정책을 추가하지 않습니다.
+Lab 02, 04, 05 산출물을 나란히 읽고 요청, 결정, 범위, 검증 용어와 링크를 점검합니다. 새 정책을 추가하지 않습니다.
 
 #### 검증
 
@@ -67,7 +67,7 @@
 
 #### 실행
 
-`notes/small-development-workflow.md`에 작업 단계, 사용할 surface, 입력, 출력, 사람 확인 지점을 표로 정리합니다. Desktop App은 계획·리뷰, CLI는 반복 검증, Browser는 GitHub나 로컬 화면, Automation은 검증된 반복 작업 후보로 분리합니다(확인 2026-08-02).
+`notes/small-development-workflow.md`에 작업 단계, 사용할 surface, 입력, 출력, 사람 확인 지점을 표로 정리합니다. Desktop App은 계획·리뷰, CLI는 반복 검증, Browser는 GitHub나 로컬 화면, Automation은 검증된 반복 작업 후보로 분리합니다.
 
 #### 검증
 
@@ -80,7 +80,7 @@
 
 #### 설계 질문
 
-- 1강의 각 실패 패턴이 어떤 산출물로 줄었나요?
+- Lab 01의 각 실패 패턴이 어떤 산출물로 줄었나요?
 - 아직 해결되지 않고 다음 Chapter로 넘어가는 문제는 무엇인가요?
 
 #### 실행
@@ -92,7 +92,7 @@
 - [ ] 네 패턴 모두 대응 산출물이 있습니다.
 - [ ] `src/`, `tests/` diff가 없습니다.
 - [ ] workflow skeleton과 surface 문서가 서로 참조합니다.
-- [ ] 커밋 수가 이 강에서 두 개를 넘지 않습니다.
+- [ ] 커밋 수가 이 lab에서 두 개를 넘지 않습니다.
 
 ## 4. Self-check
 
@@ -106,12 +106,6 @@ node labs/tools/check.mjs 06
 - surface 이름만 나열하고 입력, 출력, 사람 확인을 쓰지 않습니다.
 - 문서 정합을 맞추면서 앱 코드를 함께 수정합니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-현재 결과를 출발선 기준과 비교할 때만 다음 명령을 사용합니다.
-
-```bash
-git diff --stat HEAD course/checkpoint/ch1 -- docs notes AGENTS.md
-```
-
-7강에서는 `pending-decisions.md`의 질문을 사람이 결정하고 정책 문서로 확정합니다.
+Lab 07에서는 `pending-decisions.md`의 질문을 사람이 결정하고 정책 문서로 확정합니다.

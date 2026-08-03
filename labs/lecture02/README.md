@@ -11,16 +11,16 @@
 
 - `labs/fixtures/lecture01-transcript.md`가 존재해야 합니다.
 - `notes/`는 아직 없고 `src/`, `tests/`는 v0입니다.
-- 시작 상태가 다르면 [CHECKPOINTS.md](../CHECKPOINTS.md)의 케이스 D로 출발선을 재설정합니다.
+- 시작 상태가 다르면 현재 변경을 별도 브랜치에 보존한 뒤 새 독립 저장소에서 다시 시작합니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L02-C1 | 대화는 왜 자산이 되지 못하는가 — 답변의 3층 구조 | 10분 | 변화 없음 | 없음 | 없음 |
-| L02-C2 | 일반론을 걷어내고, 확인된 사실만 남기기 | 13분 | `notes/order-status-request.md` | 없음 | E1, E2 |
-| L02-C3 | 사람이 정해야 할 질문과, 다음 세션의 시작점 남기기 | 13분 | `notes/pending-decisions.md`, `notes/next-actions.md` | `docs: capture order status request` | E3, E4 |
-| L02-C4 | 파일 세 개가 만든 첫 루프 — 다음 강으로 넘기는 것 | 8분 | 변화 없음 | 없음 | 없음 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 일반론과 repo에서 확인 가능한 내용을 분리합니다. | `notes/order-status-request.md`의 요청 원문 |
+| E2 | 코드와 테스트를 근거로 사실과 추정을 구분합니다. | 같은 파일의 확인된 사실과 추정 |
+| E3 | 구현 전에 결정해야 할 질문을 정리합니다. | `notes/pending-decisions.md` |
+| E4 | 다음 세션이 바로 시작할 수 있는 정보를 남깁니다. | `notes/next-actions.md`와 완료 커밋 |
 
 ## 3. 실습
 
@@ -102,9 +102,9 @@ node labs/tools/check.mjs 02
 ## 5. 흔한 함정
 
 - transcript의 표현을 그대로 옮겨 사실과 추정을 다시 섞습니다.
-- 결정 질문에 결론까지 써서 7강의 사람 판단 지점을 없앱니다.
+- 결정 질문에 결론까지 써서 Lab 07의 사람 판단 지점을 없앱니다.
 - 세 파일을 만들면서 `src/`를 함께 수정합니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-세 notes 파일은 3강의 작업 경계 설정과 6강의 workflow skeleton 입력이 됩니다. `pending-decisions.md`의 질문은 7강에서 정책으로 확정합니다.
+세 notes 파일은 Lab 03의 작업 경계 설정과 Lab 06의 workflow skeleton 입력이 됩니다. `pending-decisions.md`의 질문은 Lab 07에서 정책으로 확정합니다.

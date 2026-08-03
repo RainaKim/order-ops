@@ -1,6 +1,5 @@
 {
   "lecture": "03",
-  "clips": ["L03-C1", "L03-C2", "L03-C3"],
   "required": [],
   "optional": [
     { "path": "notes/task-boundary.md", "headings": ["## 요청 분해", "## 단계별 금지 조건", "## Human Gate", "## 멈춤 조건"] }

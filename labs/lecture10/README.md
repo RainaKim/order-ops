@@ -9,17 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- 9강 implementation plan template이 완성돼야 합니다.
+- Lab 09 implementation plan template이 완성돼야 합니다.
 - `docs/prompts/`는 아직 없어야 합니다.
-- 앱 코드는 v0이며 이번 강에서도 변경하지 않습니다.
+- 앱 코드는 v0이며 이번 lab에서도 변경하지 않습니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L10-C1 | 매번 새로 설명하지 않으려면 — 빠진 테스트 케이스를 찾는 요청문 | 13분 | `docs/prompts/test-generation.md` | 없음 | E1 |
-| L10-C2 | PR 설명과 diff 셀프리뷰를 프롬프트로 고정하기 | 13분 | `docs/prompts/pr-description.md`, `docs/prompts/self-review.md` | 없음 | E2, E3 |
-| L10-C3 | 만든 프롬프트를 AGENTS.md에서 불러 쓰게 연결하기 | 14분 | root `AGENTS.md`의 Commands와 Before Final Response 갱신 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 테스트 보강 작업의 입력과 경계를 prompt로 고정합니다. | `docs/prompts/test-generation.md` |
+| E2 | 검증 결과와 위험을 포함하는 PR 설명 prompt를 만듭니다. | `docs/prompts/pr-description.md` |
+| E3 | issue, plan, diff, test를 대조하는 review prompt를 만듭니다. | `docs/prompts/self-review.md` |
+| E4 | 세 prompt의 사용 시점을 작업 기준에 연결합니다. | root `AGENTS.md` 갱신과 완료 커밋 |
 
 ## 3. 실습
 
@@ -104,6 +105,6 @@ node labs/tools/check.mjs 10
 - 실행하지 않은 테스트를 통과했다고 쓰게 하는 프롬프트를 만듭니다.
 - AGENTS.md에 프롬프트 전문을 복제합니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-세 프롬프트와 두 template은 11강에서 repo 기준 문서 풀세트로 점검합니다. 앱 코드는 계속 v0로 유지합니다.
+세 프롬프트와 두 template은 Lab 11에서 repo 기준 문서 풀세트로 점검합니다. 앱 코드는 계속 v0로 유지합니다.

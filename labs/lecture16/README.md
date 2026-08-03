@@ -2,25 +2,25 @@
 
 ## 0. 이 랩이 끝나면
 
-- 12~15강 변경을 하나의 리뷰 가능한 PR 후보로 묶습니다.
+- Lab 12~15 변경을 하나의 리뷰 가능한 PR 후보로 묶습니다.
 - 일곱 항목의 `docs/checklists/pr-preflight.md`를 만들고 실행합니다.
 - `.github/pull_request_template.md`, `notes/pr-draft-l16.md`를 완성합니다.
 - 예상 소요 시간은 55분입니다.
 
 ## 1. 시작 전 상태 확인
 
-- 15강 코드와 테스트가 모두 커밋돼 있어야 합니다.
+- Lab 15 코드와 테스트가 모두 커밋돼 있어야 합니다.
 - 작업 트리는 깨끗하고 test, lint, typecheck가 통과해야 합니다.
-- 이 강에서는 앱 코드를 추가로 수정하지 않습니다.
+- 이 lab에서는 앱 코드를 추가로 수정하지 않습니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L16-C1 | P3 시작 — 지금까지의 변경을 하나의 PR 후보로 묶기 | 13분 | 변경 파일 목록 정리 | 없음 | E1 |
-| L16-C2 | P3 · 리뷰 전에 스스로 통과시켜야 할 preflight 항목 | 14분 | `docs/checklists/pr-preflight.md` | 없음 | E2 |
-| L16-C3 | P3 · PR 설명 초안 쓰기 — Summary부터 Rollback Note까지 | 14분 | `.github/pull_request_template.md`, `notes/pr-draft-l16.md` | 없음 | E3 |
-| L16-C4 | P3 마무리 — 리뷰어가 처음부터 다시 추적하지 않아도 되는가 | 14분 | PR draft에 review-ready 판정 추가 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 구현·테스트·문서 변경을 하나의 PR 후보 범위로 묶습니다. | 계획 대비 변경 파일 목록 |
+| E2 | 리뷰 요청 전에 통과할 preflight를 작성하고 실행합니다. | `docs/checklists/pr-preflight.md` |
+| E3 | 재사용 가능한 PR template과 현재 작업의 draft를 만듭니다. | `.github/pull_request_template.md`, `notes/pr-draft-l16.md` |
+| E4 | 검증 근거를 기준으로 review-ready 여부를 판정합니다. | 완성된 PR draft와 완료 커밋 |
 
 ## 3. 실습
 
@@ -28,12 +28,12 @@
 
 #### 설계 질문
 
-- 12~15강 변경 중 하나의 목적과 연결되지 않는 파일은 무엇인가요?
+- Lab 12~15 변경 중 하나의 목적과 연결되지 않는 파일은 무엇인가요?
 - 리뷰어가 정책에서 코드와 테스트까지 어떤 순서로 읽어야 하나요?
 
 #### 실행
 
-기준 체크포인트부터 현재까지 diff를 보고 파일을 정책, plan, 코드, 테스트, 검증 기록으로 분류합니다. 새 코드는 작성하지 않습니다.
+`git log --oneline`에서 Lab 12 시작 직전 커밋을 찾고, 그 커밋부터 현재까지의 diff를 확인합니다. 변경 파일을 정책, plan, 코드, 테스트, 검증 기록으로 분류하며 새 코드는 작성하지 않습니다.
 
 #### 검증
 
@@ -91,7 +91,7 @@ PR draft에 `## Review-ready 판정`을 추가하고 남은 차단 조건, 리�
 - [ ] review-ready 여부가 근거와 함께 적혀 있습니다.
 - [ ] 남은 위험과 사람 확인이 숨겨지지 않았습니다.
 - [ ] 전체 검증 명령이 통과합니다.
-- [ ] 이 강의 커밋에 앱 코드 변경이 없습니다.
+- [ ] 이 lab의 커밋에 앱 코드 변경이 없습니다.
 
 ## 4. Self-check
 
@@ -105,12 +105,6 @@ node labs/tools/check.mjs 16
 - PR template과 현재 PR draft를 같은 파일로 만듭니다.
 - review-ready를 검증 근거 없이 선언합니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-현재 결과를 Chapter 3 출발선과 비교할 때만 다음 명령을 사용합니다.
-
-```bash
-git diff --stat HEAD course/checkpoint/ch3 -- docs notes AGENTS.md .github src tests
-```
-
-17강에서는 같은 작업을 planner, implementer, reviewer 역할로 나눕니다.
+Lab 17에서는 같은 작업을 planner, implementer, reviewer 역할로 나눕니다.

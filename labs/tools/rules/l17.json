@@ -1,6 +1,5 @@
 {
   "lecture": "17",
-  "clips": ["L17-C1", "L17-C2", "L17-C3", "L17-C4"],
   "required": [
     { "path": "docs/prompts/planner.md" },
     { "path": "docs/prompts/implementer.md" },

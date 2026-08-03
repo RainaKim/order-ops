@@ -9,17 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- 14강 테스트 세 파일과 assertion review가 있어야 합니다.
+- Lab 14 테스트 세 파일과 assertion review가 있어야 합니다.
 - `src/payments.ts`에는 예외를 `ok:false`로 바꾸는 catch가 남아 있습니다.
 - `src/admin.ts`에는 예외를 빈 배열로 바꾸는 fallback이 남아 있습니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L15-C1 | 조용히 실패하는 코드가 만드는 문제 — 빈 배열과 기본값 | 13분 | 신규 파일 없음, 탐지 기록 | 없음 | E1 |
-| L15-C2 | 에러를 없애려고 fallback을 넣는 순간을 잡아내기 | 13분 | `src/payments.ts`, `src/admin.ts` fallback 제거 | 없음 | E2 |
-| L15-C3 | 재시도할 실패와 즉시 멈출 실패를 나누기 | 14분 | `docs/checklists/failure-handling.md`, `docs/retry-stop-matrix.md` | 강 종료 커밋 | E3, E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 오류를 정상 응답처럼 숨기는 fallback을 찾습니다. | 위치와 외부 영향에 대한 탐지 결과 |
+| E2 | 결제와 관리자 경로의 silent fallback을 제거합니다. | `src/payments.ts`, `src/admin.ts` 변경 |
+| E3 | 실패 종류별 retry와 stop 기준을 나눕니다. | `docs/retry-stop-matrix.md` |
+| E4 | 오류 보존과 검증 기준을 checklist로 고정합니다. | `docs/checklists/failure-handling.md`와 완료 커밋 |
 
 ## 3. 실습
 
@@ -105,6 +106,6 @@ node labs/tools/check.mjs 15
 - 모든 실패를 무조건 재시도하게 합니다.
 - 오류 메시지를 그대로 외부에 노출해 내부 정보를 새게 합니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-교정된 오류 처리와 retry-stop 기준은 16강 PR preflight의 실패 처리 항목이 됩니다. 관리자 실패 사유 필드는 17강까지 추가하지 않습니다.
+교정된 오류 처리와 retry-stop 기준은 Lab 16 PR preflight의 실패 처리 항목이 됩니다. 관리자 실패 사유 필드는 Lab 17까지 추가하지 않습니다.

@@ -8,13 +8,28 @@ const rulesRoot = path.join(repoRoot, 'labs/tools/rules');
 const requiredLabHeadings = [
   '## 0. 이 랩이 끝나면',
   '## 1. 시작 전 상태 확인',
-  '## 2. 클립별 진행 지도',
+  '## 2. 실습 목표와 산출물',
   '## 3. 실습',
   '## 4. Self-check',
   '## 5. 흔한 함정',
-  '## 6. 다음 강으로 넘기는 것',
+  '## 6. 다음 lab으로 넘기는 것',
 ];
-const forbiddenLabTerms = ['정답', '예시 답안', '모범', '아래를 복사'];
+const forbiddenLabTerms = [
+  '정답',
+  '예시 답안',
+  '모범',
+  '아래를 복사',
+  '강사',
+  '수강생',
+  '학생',
+  '클립',
+  '리허설',
+  '녹화',
+];
+const forbiddenLabPatterns = [
+  { pattern: /L\d{2}-C\d/g, label: '클립 ID' },
+  { pattern: /\bC[1-4]\b/g, label: '클립 단계 참조' },
+];
 
 let failures = 0;
 let warnings = 0;
@@ -303,10 +318,10 @@ function lintLabs() {
       }
     }
 
-    const rule = parseRule(lecture);
-    for (const clip of rule.clips) {
-      if (!markdown.includes(clip)) {
-        fail(`${relativePath}에 클립 ID ${clip}가 없습니다.`);
+    for (const { pattern, label } of forbiddenLabPatterns) {
+      pattern.lastIndex = 0;
+      if (pattern.test(markdown)) {
+        fail(`${relativePath}에 ${label}가 있습니다.`);
       }
     }
   }
@@ -335,8 +350,8 @@ function runAppChecks() {
 function checkLecture(rawLecture, branch) {
   const number = Number(rawLecture);
   if (!Number.isInteger(number) || number < 1 || number > 20) {
-    fail('강 번호는 01부터 20 사이여야 합니다.');
-    finish('강별 self-check');
+    fail('lab 번호는 01부터 20 사이여야 합니다.');
+    finish('lab self-check');
   }
 
   const lecture = String(number).padStart(2, '0');

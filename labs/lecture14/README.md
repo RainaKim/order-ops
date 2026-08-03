@@ -9,18 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- 13강 종료 상태에서 `src/`는 12강과 같아야 합니다.
+- Lab 13 종료 상태에서 `src/`는 Lab 12와 같아야 합니다.
 - 기존 `tests/orders.test.ts`는 얕은 assertion 네 개를 갖고 있어야 합니다.
 - 현재 테스트와 정책 문서 세 개를 먼저 읽습니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L14-C1 | 무엇을 테스트할지부터 — 핵심 케이스 세 개 고르기 | 11분 | `notes/assertion-review-l14.md` 초안 | 없음 | E1 |
-| L14-C2 | 실패하는 테스트를 먼저 보기 | 12분 | `tests/payments.test.ts`, red-green 기록 | 없음 | E2 |
-| L14-C3 | 호출 여부가 아니라 상태와 재고 변화를 검증하기 | 11분 | `tests/admin.test.ts`, `tests/orders.test.ts` assertion 교정 | 없음 | E3 |
-| L14-C4 | 나쁜 assertion과 좋은 assertion을 나란히 남기기 | 11분 | assertion review 완성 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 위험과 관찰값을 기준으로 핵심 테스트 세 개를 고릅니다. | `notes/assertion-review-l14.md` 초안 |
+| E2 | 결제 상태와 실패 주문 보존을 red-green으로 검증합니다. | `tests/payments.test.ts`와 실행 기록 |
+| E3 | 관리자 상태와 재고 변화 assertion을 강화합니다. | `tests/admin.test.ts`, 강화된 `tests/orders.test.ts` |
+| E4 | 약한 assertion과 의미 있는 assertion을 비교합니다. | 완성된 assertion review와 완료 커밋 |
 
 ## 3. 실습
 
@@ -50,7 +50,7 @@
 
 #### 실행
 
-`tests/payments.test.ts`에 결제 상태와 실패 주문 보존을 검증하는 테스트를 추가합니다. 실패 결과를 기록한 뒤 12강 구현과 맞는지 확인하고 green 결과를 남깁니다.
+`tests/payments.test.ts`에 결제 상태와 실패 주문 보존을 검증하는 테스트를 추가합니다. 실패 결과를 기록한 뒤 Lab 12 구현과 맞는지 확인하고 green 결과를 남깁니다.
 
 #### 검증
 
@@ -92,7 +92,7 @@ assertion review에 기존 검사, 강화 검사, 잡아내는 회귀를 비교�
 - [ ] 비교 표가 세 행 이상입니다.
 - [ ] 각 강화 assertion이 정책 문서를 참조합니다.
 - [ ] 전체 테스트, lint, typecheck가 통과합니다.
-- [ ] 이 강의 커밋에 src 변경이 없습니다.
+- [ ] 이 lab의 커밋에 src 변경이 없습니다.
 
 ## 4. Self-check
 
@@ -106,6 +106,6 @@ node labs/tools/check.mjs 14
 - 호출 횟수와 필드 존재만 늘리고 값은 검증하지 않습니다.
 - red와 green 사이에 무엇이 달라졌는지 기록하지 않습니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-강화된 테스트는 15강에서 silent fallback을 제거할 때 회귀 방지 장치가 됩니다. src는 12강 상태를 유지합니다.
+강화된 테스트는 Lab 15에서 silent fallback을 제거할 때 회귀 방지 장치가 됩니다. src는 Lab 12 상태를 유지합니다.

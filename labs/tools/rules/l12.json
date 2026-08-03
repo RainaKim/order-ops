@@ -1,6 +1,5 @@
 {
   "lecture": "12",
-  "clips": ["L12-C1", "L12-C2", "L12-C3", "L12-C4"],
   "required": [
     { "path": "notes/diff-review-l12.md", "headings": ["## 계획 대비 Diff", "## Scope guard 판단", "## 검증 결과"] }
   ],

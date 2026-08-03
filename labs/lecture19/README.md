@@ -9,18 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- 18강 GitHub Issue와 `issue-kickoff.md`가 있어야 합니다.
+- Lab 18 GitHub Issue와 `issue-kickoff.md`가 있어야 합니다.
 - 지금까지 반복한 test, lint, typecheck, Issue 확인, PR 점검 과정을 다시 봅니다.
-- 이 강에서는 앱 코드를 수정하지 않습니다.
+- 이 lab에서는 앱 코드를 수정하지 않습니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L19-C1 | 매번 반복하는 일 중에 무엇을 떼어낼 수 있을까 | 11분 | Automation 후보 목록 초안 | 없음 | E1 |
-| L19-C2 | Desktop App · CLI · Browser — 어디서 무엇을 확인할 것인가 | 11분 | 작업 surface 매핑 | 없음 | E2 |
-| L19-C3 | 맡길 일의 정의서 쓰기 — Input부터 Failure Alert까지 | 11분 | `docs/automation/candidates.md` | 없음 | E3 |
-| L19-C4 | 맡겨둔 작업이 스스로 멈추는 조건 만들기 | 12분 | `docs/automation/stop-conditions.md` | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 반복 작업에서 자동화 후보 네 종류를 찾습니다. | Automation 후보 목록 |
+| E2 | 각 작업에 적합한 Codex surface와 확인 지점을 연결합니다. | 작업 surface map |
+| E3 | 입력·출력·실행·승인·실패 알림을 정의합니다. | `docs/automation/candidates.md` |
+| E4 | 자동 실행이 중단되고 상태를 보존할 조건을 만듭니다. | `docs/automation/stop-conditions.md`와 완료 커밋 |
 
 ## 3. 실습
 
@@ -33,7 +33,7 @@
 
 #### 실행
 
-1~18강의 반복 작업을 돌아보고 빈도, 입력 안정성, 실패 영향, 사람 판단 필요도를 기준으로 후보 네 종류를 고릅니다.
+Lab 01~18의 반복 작업을 돌아보고 빈도, 입력 안정성, 실패 영향, 사람 판단 필요도를 기준으로 후보 네 종류를 고릅니다.
 
 #### 검증
 
@@ -50,7 +50,7 @@
 
 #### 실행
 
-Desktop App은 계획과 리뷰, CLI는 결정적 명령 검증, Browser는 GitHub와 로컬 웹, Computer Use는 전용 연동이 없는 GUI, Automation은 검증된 반복 작업으로 매핑합니다(확인 2026-08-02).
+Desktop App은 계획과 리뷰, CLI는 결정적 명령 검증, Browser는 GitHub와 로컬 웹, Computer Use는 전용 연동이 없는 GUI, Automation은 검증된 반복 작업으로 매핑합니다.
 
 #### 검증
 
@@ -67,7 +67,7 @@ Desktop App은 계획과 리뷰, CLI는 결정적 명령 검증, Browser는 GitH
 
 #### 실행
 
-`docs/automation/candidates.md`에 각 후보의 Input, Output, Run Condition, Stop Condition, Human Approval, Failure Alert를 작성합니다. 실제 예약 작업을 만들기 전에 일반 세션에서 프롬프트를 시험합니다(확인 2026-08-02).
+`docs/automation/candidates.md`에 각 후보의 Input, Output, Run Condition, Stop Condition, Human Approval, Failure Alert를 작성합니다. 실제 예약 작업을 만들기 전에 일반 세션에서 프롬프트를 시험합니다.
 
 #### 검증
 
@@ -92,7 +92,7 @@ Desktop App은 계획과 리뷰, CLI는 결정적 명령 검증, Browser는 GitH
 - [ ] 중단 조건이 다섯 종류입니다.
 - [ ] 각 조건에 감지 신호와 알림이 있습니다.
 - [ ] 무한 재시도를 막는 상한이 있습니다.
-- [ ] 이 강의 커밋에 앱 코드 변경이 없습니다.
+- [ ] 이 lab의 커밋에 앱 코드 변경이 없습니다.
 
 ## 4. Self-check
 
@@ -106,6 +106,6 @@ node labs/tools/check.mjs 19
 - 첫 수동 실행을 검증하지 않고 바로 예약합니다.
 - 중단 조건 없이 실패할 때마다 다시 시도합니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-Automation 후보와 중단 조건은 20강 backlog에 합쳐집니다. 18강 Issue와 19강 상태를 유지한 채 최종 incident workflow를 시작합니다.
+Automation 후보와 중단 조건은 Lab 20 backlog에 합쳐집니다. Lab 18 Issue와 Lab 19 상태를 유지한 채 최종 incident workflow를 시작합니다.

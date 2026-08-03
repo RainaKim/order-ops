@@ -10,17 +10,17 @@
 ## 1. 시작 전 상태 확인
 
 - root `AGENTS.md`는 아직 없어야 합니다.
-- 2강 notes와 3강 작업 경계 기록을 읽을 수 있어야 합니다.
+- Lab 02 notes와 Lab 03 작업 경계 기록을 읽을 수 있어야 합니다.
 - 위치 규칙은 `labs/CONVENTIONS.md`를 기준으로 사용합니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L04-C1 | 매번 설명하던 것을 파일 하나로 옮기기 — AGENTS.md가 필요한 이유 | 12분 | `AGENTS.md`의 `Project Overview` | 없음 | E1 |
-| L04-C2 | 코드를 고치기 전에 무엇부터 읽게 할 것인가 | 11분 | `Before Editing`, `Commands` 추가 | 없음 | E2 |
-| L04-C3 | 하지 말아야 할 것을 명시해야 정책이 지켜진다 | 11분 | `Rules` 추가 | 없음 | E3 |
-| L04-C4 | 최종 응답 기준과, 도구가 바뀌어도 남는 기준 문서 | 11분 | `Before Final Response` 추가, 5섹션 완성 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 프로젝트의 확인된 목적과 기술 구성을 기록합니다. | root `AGENTS.md`의 `Project Overview` |
+| E2 | 수정 전에 읽을 자료와 실행 명령을 연결합니다. | `Before Editing`, `Commands` |
+| E3 | 작업 중 지켜야 할 금지 조건을 고정합니다. | `Rules` |
+| E4 | 완료 전 검증과 응답 기준을 추가하고 새 세션에서 확인합니다. | `Before Final Response`와 완료 커밋 |
 
 ## 3. 실습
 
@@ -84,7 +84,7 @@ root `AGENTS.md`를 만들고 현재 파일로 확인 가능한 프로젝트 목
 
 #### 실행
 
-`## Before Final Response`를 작성하고 새 Codex 세션에서 활성 지침과 검증 명령을 요약하게 합니다. 확인 결과를 검토한 뒤 커밋합니다. Codex는 작업 시작 시 repo root에서 현재 디렉터리까지 `AGENTS.md`를 읽습니다(확인 2026-08-02).
+`## Before Final Response`를 작성하고 새 Codex 세션에서 활성 지침과 검증 명령을 요약하게 합니다. 확인 결과를 검토한 뒤 커밋합니다. Codex는 작업 시작 시 repo root에서 현재 디렉터리까지 `AGENTS.md`를 읽습니다.
 
 #### 검증
 
@@ -105,6 +105,6 @@ node labs/tools/check.mjs 04
 - package.json에 없는 preflight 명령을 추가합니다.
 - 같은 내용을 여러 에이전트 지침 파일에 복제해 유지 지점을 늘립니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-root `AGENTS.md`는 5강 plan-first 작업에서 작업 전 기준으로 사용하고, 7강과 10강에서 정책 문서와 재사용 프롬프트 참조를 누적합니다.
+root `AGENTS.md`는 Lab 05 plan-first 작업에서 작업 전 기준으로 사용하고, Lab 07과 Lab 10에서 정책 문서와 재사용 프롬프트 참조를 누적합니다.

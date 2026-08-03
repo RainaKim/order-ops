@@ -9,18 +9,18 @@
 
 ## 1. 시작 전 상태 확인
 
-- 2강 `notes/pending-decisions.md`의 미결정 질문 세 개를 다시 읽습니다.
+- Lab 02 `notes/pending-decisions.md`의 미결정 질문 세 개를 다시 읽습니다.
 - `docs/templates/workflow-skeleton.md`는 있지만 정책 문서 세 개는 아직 없어야 합니다.
-- 앱 코드는 v0이며 이번 강에서도 수정하지 않습니다.
+- 앱 코드는 v0이며 이번 lab에서도 수정하지 않습니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L07-C1 | 정책을 문서로 못 박아야 하는 이유 — 주문 상태 다섯 개의 의미와 전환 조건 | 11분 | `docs/order-policy.md`의 상태 정의와 전환 조건 | 없음 | E1 |
-| L07-C2 | 결제 성공 후에 재고를 깎는다 — 결제·재고 원칙을 문서로 | 12분 | `docs/payment-policy.md`, `docs/inventory-policy.md` | 없음 | E2 |
-| L07-C3 | 실패한 주문은 관리자에게 어떻게 보여야 하는가 | 11분 | `docs/order-policy.md`에 관리자 조회 기준 추가 | 없음 | E3 |
-| L07-C4 | 만든 정책을 Codex가 먼저 읽게 연결하기 | 11분 | root `AGENTS.md`의 `Before Editing` 갱신 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 주문 상태의 의미와 허용 전환을 정의합니다. | `docs/order-policy.md` |
+| E2 | 결제 판단과 재고 변경 원칙을 분리합니다. | `docs/payment-policy.md`, `docs/inventory-policy.md` |
+| E3 | 관리자 조회 필드와 노출 조건을 정합니다. | `docs/order-policy.md`의 관리자 조회 기준 |
+| E4 | 관련 작업 전에 정책 문서를 읽도록 연결합니다. | root `AGENTS.md` 갱신과 완료 커밋 |
 
 ## 3. 실습
 
@@ -105,6 +105,6 @@ node labs/tools/check.mjs 07
 - 상태 이름만 나열하고 전환 조건을 쓰지 않습니다.
 - 문서를 쓰면서 코드 상태도 먼저 확장합니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-세 정책 문서는 8강 Issue의 관련 맥락과 acceptance criteria 근거가 됩니다. 결정이 끝난 pending 항목에는 결론과 결정일을 남깁니다.
+세 정책 문서는 Lab 08 Issue의 관련 맥락과 acceptance criteria 근거가 됩니다. 결정이 끝난 pending 항목에는 결론과 결정일을 남깁니다.

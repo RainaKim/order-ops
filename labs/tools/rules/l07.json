@@ -1,6 +1,5 @@
 {
   "lecture": "07",
-  "clips": ["L07-C1", "L07-C2", "L07-C3", "L07-C4"],
   "required": [
     { "path": "docs/order-policy.md", "headings": ["## 상태 정의", "## 전환 조건", "## 관리자 조회 기준"] },
     { "path": "docs/payment-policy.md", "headings": ["## 결제 원칙"] },

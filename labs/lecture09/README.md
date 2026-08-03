@@ -4,23 +4,23 @@
 
 - 구현 전에 읽을 파일, 바꿀 파일, 단계, 테스트, 위험, 제외 범위, 멈춤 조건을 분리합니다.
 - 재사용 가능한 `docs/templates/implementation-plan.md`를 완성합니다.
-- 12강 구현 전에 사람 승인을 받을 구조를 만듭니다.
+- Lab 12 구현 전에 사람 승인을 받을 구조를 만듭니다.
 - 예상 소요 시간은 45분입니다.
 
 ## 1. 시작 전 상태 확인
 
-- 8강 Issue template과 `notes/issue-draft-l08.md`가 있어야 합니다.
-- 앱 코드는 v0이며 이번 강에서도 변경하지 않습니다.
+- Lab 08 Issue template과 `notes/issue-draft-l08.md`가 있어야 합니다.
+- 앱 코드는 v0이며 이번 lab에서도 변경하지 않습니다.
 - `docs/templates/`에는 workflow skeleton만 있어야 합니다.
 
-## 2. 클립별 진행 지도
+## 2. 실습 목표와 산출물
 
-| 클립 | 클립명 | 분량 | 클립 종료 시 산출물 | 커밋 | 실습 |
-| --- | --- | --- | --- | --- | --- |
-| L09-C1 | 이슈를 읽고 바로 코딩하지 않게 만드는 법 — plan 템플릿의 뼈대 | 12분 | implementation plan의 Goal, Files to Change, Files to Read First | 없음 | E1 |
-| L09-C2 | 고칠 파일과 먼저 읽을 파일을 나누기 | 11분 | Steps 추가 | 없음 | E2 |
-| L09-C3 | 이번 작업에서 제외할 것과, 남는 리스크 적기 | 11분 | Tests, Risks, Out of Scope 추가 | 없음 | E3 |
-| L09-C4 | 승인 전에는 구현하지 않는다 — Stop Conditions 넣고 마무리 | 11분 | Stop Conditions 추가, template 완성 | 강 종료 커밋 | E4 |
+| 단계 | 핵심 작업 | 결과 |
+| --- | --- | --- |
+| E1 | 목표와 읽을 파일, 변경할 파일을 구분합니다. | `docs/templates/implementation-plan.md` 골격 |
+| E2 | 구현 단계를 작게 나누고 순서를 정합니다. | 같은 template의 `Steps` |
+| E3 | 테스트, 위험, 제외 범위를 명시합니다. | `Tests`, `Risks`, `Out of Scope` |
+| E4 | 승인 전 구현을 막는 중단 조건을 추가합니다. | 완성된 plan template과 완료 커밋 |
 
 ## 3. 실습
 
@@ -101,10 +101,10 @@ node labs/tools/check.mjs 09
 
 ## 5. 흔한 함정
 
-- template에 8강 Issue의 내용을 채워 재사용할 수 없게 만듭니다.
+- template에 Lab 08 Issue의 내용을 채워 재사용할 수 없게 만듭니다.
 - 읽을 파일과 바꿀 파일을 같은 목록으로 둡니다.
 - Stop Conditions를 마지막 체크리스트가 아니라 구현 중 멈춤 기준으로 쓰지 않습니다.
 
-## 6. 다음 강으로 넘기는 것
+## 6. 다음 lab으로 넘기는 것
 
-이 template은 12강 C1, C2에서 처음 실제 계획에 사용합니다. 10강에서는 구현 이후 반복 작업을 프롬프트로 고정합니다.
+이 template은 Lab 12의 E1과 E2에서 처음 실제 계획에 사용합니다. Lab 10에서는 구현 이후 반복 작업을 프롬프트로 고정합니다.

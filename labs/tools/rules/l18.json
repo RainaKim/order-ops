@@ -1,6 +1,5 @@
 {
   "lecture": "18",
-  "clips": ["L18-C1", "L18-C2", "L18-C3", "L18-C4"],
   "required": [
     { "path": "docs/prompts/issue-kickoff.md" }
   ],
