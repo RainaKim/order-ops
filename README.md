@@ -1,4 +1,6 @@
-# order-ops
+# order-ops — 개발자를 위한 Codex 워크플로 실습
+
+## Overview
 
 `order-ops`는 주문 생성, 결제, 재고, 관리자 조회가 연결된 작은 TypeScript API를 기반으로 개발 workflow를 연습하는 저장소입니다.
 
