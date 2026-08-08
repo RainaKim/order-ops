@@ -100,7 +100,7 @@ payments와 admin의 try/catch, 기본 응답, 로그 흐름을 추적하고 실
 node labs/tools/check.mjs 15
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - 기존 catch를 다른 기본값 반환으로 바꿉니다.
 - 모든 실패를 무조건 재시도하게 합니다.

@@ -99,7 +99,7 @@ root `AGENTS.md`의 `Commands`와 `Before Final Response`에 세 프롬프트 �
 node labs/tools/check.mjs 10
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - 특정 작업의 완성 요청문을 저장해 재사용 범위를 좁힙니다.
 - 실행하지 않은 테스트를 통과했다고 쓰게 하는 프롬프트를 만듭니다.

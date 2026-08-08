@@ -99,7 +99,7 @@
 node labs/tools/check.mjs 09
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - template에 Lab 08 Issue의 내용을 채워 재사용할 수 없게 만듭니다.
 - 읽을 파일과 바꿀 파일을 같은 목록으로 둡니다.

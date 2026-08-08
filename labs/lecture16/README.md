@@ -99,7 +99,7 @@ PR draft에 `## Review-ready 판정`을 추가하고 남은 차단 조건, 리�
 node labs/tools/check.mjs 16
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - preflight를 새 npm script로 미리 등록해 학습 지점을 없앱니다.
 - PR template과 현재 PR draft를 같은 파일로 만듭니다.

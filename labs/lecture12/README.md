@@ -101,7 +101,7 @@ diff review에 `## Scope guard 판단`을 추가하고 계획 이탈, 수용 여
 node labs/tools/check.mjs 12
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - 계획 승인 전에 작은 코드 변경을 먼저 시작합니다.
 - 실패 주문 보존과 함께 `deriveDisplayStatus()`까지 고쳐 Lab 18 VOC의 원인을 없앱니다.

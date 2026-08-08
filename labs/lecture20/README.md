@@ -103,7 +103,7 @@ planner가 승인된 plan을 만들고, implementer가 `deriveDisplayStatus()`�
 node labs/tools/check.mjs 20
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - 로그를 읽기 전에 `deriveDisplayStatus()`를 바로 수정합니다.
 - 과거 결제 실패 이력을 삭제해 표시 문제를 숨깁니다.

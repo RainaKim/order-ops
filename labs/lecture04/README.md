@@ -99,7 +99,7 @@ root `AGENTS.md`를 만들고 현재 파일로 확인 가능한 프로젝트 목
 node labs/tools/check.mjs 04
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - 현재 존재하지 않는 정책을 overview에 미리 확정합니다.
 - package.json에 없는 preflight 명령을 추가합니다.

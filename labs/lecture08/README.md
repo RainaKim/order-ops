@@ -99,7 +99,7 @@ template의 완료 기준 안내를 참 또는 거짓으로 판정 가능한 체
 node labs/tools/check.mjs 08
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - Lab 08을 시작하기 전에 `.github/`를 미리 만들어 시작 상태를 바꿉니다.
 - template과 실제 Issue 초안의 역할을 섞습니다.

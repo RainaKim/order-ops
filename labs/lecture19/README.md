@@ -100,7 +100,7 @@ Desktop App은 계획과 리뷰, CLI는 결정적 명령 검증, Browser는 GitH
 node labs/tools/check.mjs 19
 ```
 
-## 5. 흔한 함정
+## 5. 자주 하는 실수
 
 - 새 기능을 소개하려고 Automation 후보를 억지로 만듭니다.
 - 첫 수동 실행을 검증하지 않고 바로 예약합니다.

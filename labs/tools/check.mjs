@@ -11,7 +11,7 @@ const requiredLabHeadings = [
   '## 2. 실습 목표와 산출물',
   '## 3. 실습',
   '## 4. Self-check',
-  '## 5. 흔한 함정',
+  '## 5. 자주 하는 실수',
   '## 6. 다음 lab으로 넘기는 것',
 ];
 const forbiddenLabTerms = [

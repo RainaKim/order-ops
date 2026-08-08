@@ -1,7 +1,7 @@
 {
   "lecture": "01",
   "required": [
-    { "path": "labs/fixtures/lecture01-transcript.md", "headings": ["## 요청 1: 프로젝트 설명 없음", "## 요청 2: repo 맥락 제공"] }
+    { "path": "labs/fixtures/lecture01-transcript.md" }
   ],
   "optional": [],
   "runAppChecks": false

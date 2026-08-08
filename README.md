@@ -326,7 +326,7 @@ type OrderStatus = 'pending' | 'paid' | 'cancelled';
 3. 실습 목표와 산출물 확인
 4. 설계 질문 → 실행 → 검증
 5. Self-check
-6. 흔한 함정
+6. 자주 하는 실수
 7. 다음 lab 준비
 
 ## 개발 명령
