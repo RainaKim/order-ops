@@ -1,5 +1,5 @@
 ## 다음 작업
 
-- 결제 실패 상태 범위, API 응답, 재결제, 관리자 표시 범위를 선택한다. 입력: `notes/pending-decisions.md`.
-- 선택한 결정을 주문 상태와 결제·관리자 처리에 반영한다. 입력: `notes/order-status-request.md`, `notes/pending-decisions.md`; 확인 대상: `src/store.ts`, `src/orders.ts`, `src/payments.ts`, `src/admin.ts`.
-- 완료 조건을 검증한다. 입력: `notes/order-status-request.md`; 확인 대상: `tests/orders.test.ts`, `npm test`, `npm run typecheck`.
+- 요청 원문·확인된 사실·추정 항목을 대조해 결제 실패 처리의 조사 쟁점을 정리한다. 입력: `notes/order-status-request.md`.
+- 주문 생성, 결제 실패, 관리자 목록의 현재 흐름을 읽어 쟁점별 확인 위치를 정리한다. 확인 대상: `src/orders.ts`, `src/payments.ts`, `src/admin.ts`, `src/store.ts`.
+- 사람이 정할 항목은 `notes/pending-decisions.md`에서 확인한다. 입력: `notes/pending-decisions.md`.
