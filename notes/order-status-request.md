@@ -39,9 +39,11 @@ tests/orders.test.ts · package.json (dev/test/lint/typecheck) [근거: `tests/o
 
 지금은 결제가 실패하면 payments.ts가 주문을 Map에서 삭제해버립니다. [근거: `src/payments.ts`]
 
+현재 테스트는 주문 생성·조회, 결제 응답의 `ok` 필드 존재, 관리자 목록의 배열 여부만 확인하며, 실패 주문 보존·재고 시점·관리자 실패 정보는 검증하지 않습니다. [근거: `tests/orders.test.ts`]
+
 ## 추정
 
-수정 대상은 다섯 곳입니다.
+조사가 필요한 관련 파일 후보는 다섯 곳입니다. 실제 수정 범위는 결정 확정과 현재 동작 추적 뒤에 정합니다.
 
 - `src/store.ts`: `OrderStatus`에 `payment_failed`, `refunded`를 추가합니다.
 - `src/orders.ts`: `POST /orders`에서 재고를 차감하는 반복문을 제거합니다.
@@ -49,8 +51,6 @@ tests/orders.test.ts · package.json (dev/test/lint/typecheck) [근거: `tests/o
 - `src/admin.ts`: 결제 이력의 실패를 `payment_failed`로 표시하고, 실패 금액과 시각을 함께 응답합니다.
 - `tests/orders.test.ts`: 실패 주문의 200 조회, 상태 보존, 재고 유지, 관리자 실패 정보와 성공 결제 시 재고 차감을 검증합니다.
 
-`npm test`와 `npm run typecheck`로 완료 조건을 확인합니다.
+`npm test`와 `npm run typecheck`는 구현 단계의 완료 조건이지만, 현재 테스트가 실패 주문 보존·재고 차감 시점·관리자 실패 정보를 잡는지 별도로 확인해야 합니다.
 
-결제 실패 시 주문을 삭제하지 않고 `payment_failed`로 보존하겠습니다. `FAIL`로 시작하는 카드 토큰은 결제 이력에 실패 기록을 남기고 `402 Payment Required`를 반환하도록 처리합니다. `payment_failed` 주문은 새 카드 토큰으로 재결제할 수 있게 하며, 재결제 성공 시에만 재고를 한 번 차감하고 상태를 `paid`로 전환합니다.
-
-테스트는 다음 다섯 흐름을 포함합니다: 실패 주문 조회, 실패 시 재고 유지, 관리자 실패 정보 조회, 재결제 성공, 성공 후 중복 재고 차감 방지.
+결제 실패 시 주문 보존, 실패 API 응답, 재결제 허용 여부, 관리자 실패 정보 범위와 추가 테스트 흐름은 아직 사람 확인이 필요한 정책입니다. 확정 전에는 구현 계획이나 테스트 기대값으로 고정하지 않습니다. [확인 위치: `notes/pending-decisions.md`]
