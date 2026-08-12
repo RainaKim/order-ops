@@ -10,7 +10,6 @@
 ## 1. 시작 전 상태 확인
 
 - root `AGENTS.md`가 다섯 섹션을 갖춰야 합니다.
-- `labs/fixtures/l05-current-behavior-observed.md`를 읽을 수 있어야 합니다.
 - `src/`, `tests/`는 v0이며 작업 트리에 변경이 없어야 합니다.
 
 ## 2. 실습 목표와 산출물
