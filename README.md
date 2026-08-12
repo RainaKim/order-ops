@@ -6,7 +6,7 @@
 
 이 저장소의 앱은 완성된 서비스가 아닙니다. 현재 동작을 관찰하고, 모호한 요구사항을 문서와 계획으로 정리한 뒤, 정책에 맞게 구현하고 검증할 수 있도록 의도적으로 몇 가지 결함과 얕은 테스트를 남겨두었습니다.
 
-실습은 하나의 코드베이스를 누적해서 발전시키는 방식입니다. GitHub의 **Use this template**으로 자신의 독립 저장소를 만든 뒤 clone해서 사용하세요.
+실습은 하나의 코드베이스를 누적해서 발전시키는 방식입니다. 이 저장소를 자신의 GitHub 계정으로 **Fork**한 뒤 clone해서 사용하세요. 강의 내용이 업데이트되면 원본 저장소의 변경을 자신의 fork로 가져올 수 있습니다.
 
 ## 빠른 시작
 
@@ -17,17 +17,16 @@
 - Git
 - Codex에 로그인된 환경
 
-### 독립 저장소 만들기
+### 개인 fork 만들기
 
 1. GitHub에서 [`RainaKim/order-ops`](https://github.com/RainaKim/order-ops)를 엽니다.
-2. **Use this template**을 누르고 **Create a new repository**를 선택합니다.
+2. 오른쪽 위의 **Fork**를 누릅니다.
 3. Owner를 자신의 GitHub 계정으로 선택합니다.
 4. Repository name에 `order-ops`를 입력합니다.
-5. **Include all branches는 선택하지 않습니다.**
-6. **Create repository**를 눌러 새 저장소를 만듭니다.
-7. 생성된 저장소에 **Issues** 탭이 보이는지 확인합니다.
+5. **Create fork**를 눌러 개인 fork를 만듭니다.
+6. 생성된 저장소에 **Issues** 탭이 보이는지 확인합니다.
 
-이 방식으로 만든 저장소는 원본과 연결된 Fork가 아닌 독립 저장소입니다. 실습 커밋, Issue, Pull Request는 모두 생성한 저장소에 남습니다.
+실습 커밋, Issue, Pull Request는 자신의 fork에 남깁니다. 원본 저장소에는 강의 자료 업데이트를 받을 때만 접근합니다.
 
 Issues 탭이 보이지 않으면 생성한 저장소의 **Settings → General → Features**에서 **Issues**를 활성화하세요.
 
@@ -36,11 +35,25 @@ Issues 탭이 보이지 않으면 생성한 저장소의 **Settings → General 
 ```bash
 git clone https://github.com/YOUR_GITHUB_ID/order-ops.git
 cd order-ops
+git remote add upstream https://github.com/RainaKim/order-ops.git
 npm install
 npm test
 ```
 
-`YOUR_GITHUB_ID`는 자신의 GitHub 사용자 이름으로 바꾸세요.
+`YOUR_GITHUB_ID`는 자신의 GitHub 사용자 이름으로 바꾸세요. `origin`은 자신의 fork, `upstream`은 강의 원본 저장소를 가리킵니다.
+
+### 강의 업데이트 받기
+
+강의 내용이 업데이트되면 작업 중인 변경을 먼저 커밋한 뒤 원본의 `main`을 가져옵니다.
+
+```bash
+git fetch upstream
+git switch main
+git merge upstream/main
+git push origin main
+```
+
+충돌이 발생하면 덮어쓰지 말고 충돌 파일에서 자신의 실습 결과와 새 강의 내용을 확인한 뒤 해결하세요.
 
 ### 개발 서버 실행
 
@@ -68,7 +81,7 @@ node labs/tools/check.mjs env
 - 실습에 사용할 입력 자료
 - 환경 점검과 lab별 self-check 도구
 
-독립 저장소 생성과 환경 설정이 끝나면 다음 순서로 진행하세요.
+개인 fork 생성과 환경 설정이 끝나면 다음 순서로 진행하세요.
 
 1. [`labs/README.md`](./labs/README.md)에서 전체 실습 지도를 확인합니다.
 2. 시작하려는 lab의 `README.md`에서 시작 상태와 산출물을 확인합니다.
