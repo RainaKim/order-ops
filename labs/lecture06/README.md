@@ -261,21 +261,144 @@ reviewer subagent 하나에 작성된 template만 검토하게 합니다. review
 
 ### E3. Codex surface 연결하기
 
+Workflow의 모든 단계를 같은 화면에서 처리할 필요는 없습니다. 긴 문맥과 사람 결정은 Desktop App에서 이어가고, 로컬 저장소의 실행 가능성은 Codex CLI에서 확인할 수 있습니다. Browser와 Computer Use는 실제 화면이 필요한 경우에만 선택하며, 반복성이 확인되지 않은 작업은 Scheduled task로 만들지 않습니다. 이번 단계에서는 surface를 많이 사용하는 대신, 작업 성격이 바뀌는 경계에서 정확히 handoff하는 방법을 연습합니다.
+
+#### 이번 단계의 범위
+
+| 구분 | 내용 |
+| --- | --- |
+| 하는 것 | 공식 기능을 확인하고, workflow 작업에 surface를 배정하고, Desktop에서 CLI로 handoff한 뒤 `/review`로 변경을 검토합니다. |
+| 하지 않는 것 | 구현·테스트 변경, 검증 명령 실행, 실제 Scheduled task 생성은 하지 않습니다. |
+| 종료 상태 | `notes/small-development-workflow.md`에서 각 작업의 입력·증거·사람 확인·다음 handoff와 구현 차단 조건을 찾을 수 있습니다. |
+
+#### 진행 흐름
+
+```mermaid
+flowchart LR
+    Research["공식 기능 확인"] --> Allocate["작업별 surface 배정"]
+    Allocate --> Gate["사람이 배정 승인"]
+    Gate --> Write["workflow 문서 반영"]
+    Write --> CLI["새 CLI 세션에서 handoff 시험"]
+    CLI --> Review["/review · 승인 · 수정 · 재검토"]
+```
+
 #### 설계 질문
 
-- 계획과 리뷰처럼 긴 맥락이 필요한 작업은 어디에서 이어볼까요?
-- 반복 가능한 검증, 웹 화면 확인, 예약 실행은 각각 어느 surface가 적합한가요?
+- 긴 문맥과 사람 판단이 필요한 작업은 어디에서 이어가야 하나요?
+- 명령 결과와 종료 코드로 판정할 작업은 어느 surface가 적합한가요?
+- Browser와 Computer Use가 필요한 실제 화면 또는 GUI 동작이 있나요?
+- 한 번의 작업을 Scheduled task 후보로 올릴 만큼 반복성과 중단 조건이 확인됐나요?
 
 #### 실행
 
-`notes/small-development-workflow.md`에 작업 단계, 사용할 surface, 입력, 출력, 사람 확인 지점을 표로 정리합니다. Desktop App은 계획·리뷰, CLI는 반복 검증, Browser는 GitHub나 로컬 화면, Automation은 검증된 반복 작업 후보로 분리합니다.
+E3 시작 시 현재 변경 상태를 확인합니다. E1·E2 산출물은 기준선으로 두고, 이번 단계에서는 `notes/small-development-workflow.md`만 수정합니다.
+
+##### 1. 공식 기능에서 선택 기준 찾기
+
+`$openai-docs`를 사용해 Desktop App, Codex CLI, Browser, Computer Use, Scheduled tasks의 현재 역할과 제약을 확인합니다. 아직 workflow 단계에 surface를 배정하거나 repo 파일을 수정하지 않습니다.
+
+조사 결과에는 surface별로 다음 항목이 있어야 합니다.
+
+- 적합한 작업과 부적합한 작업
+- 시작할 때 필요한 입력
+- 사람이 정하거나 승인할 행동
+- 판단을 뒷받침하는 공식 근거
+
+Browser는 웹사이트나 로컬 웹 앱을 확인하는 작업 공간이고, Computer Use는 명령이나 구조화된 연동으로 충분하지 않을 때 GUI를 조작하는 기능입니다. Scheduled tasks는 Desktop 또는 Web에서 관리하며, 로컬 프로젝트를 사용하는 경우 컴퓨터와 앱의 실행 상태도 조건이 됩니다. 예약 전에 일반 Task나 CLI에서 프롬프트와 절차를 먼저 검증해야 합니다.
+
+##### 2. Workflow를 작업 단위로 묶어 배정하기
+
+`docs/templates/workflow-skeleton.md`, `notes/small-development-workflow.md`, `notes/order-status-plan.md`를 함께 읽습니다. 8개 섹션을 한 행씩 옮기지 않고, 같은 문맥과 surface를 사용하는 연속 단계를 실제 작업 단위로 묶습니다.
+
+배정표에는 다음 항목을 남깁니다.
+
+| 항목 | 판정할 내용 |
+| --- | --- |
+| 작업 묶음 | 같은 입력과 맥락을 공유하는 단계인가? |
+| Primary surface | 이 작업의 주 작업 공간은 어디인가? |
+| 입력 | 어떤 문서·파일·명령·화면에서 시작하는가? |
+| 산출물 또는 증거 | 다음 작업이 무엇을 근거로 이어가는가? |
+| 사람 확인 | 정책·범위·외부 변경처럼 실제 사람 판단이 필요한가? |
+| 다음 handoff | 다음 surface가 추측하지 않도록 무엇을 넘기는가? |
+
+현재 저장소는 API 중심이므로 주문 동작의 정확성을 Browser나 Computer Use에 배정하지 않습니다. 이후 원격 변경이 생겼을 때 GitHub의 렌더링된 Markdown, diff, checks 상태는 Browser 확인 후보가 될 수 있습니다. 구조화된 Browser 접근으로 충분하다면 Computer Use는 사용하지 않습니다.
+
+Scheduled task는 구현 후 수동 검증이 통과하고 반복 필요가 생겼을 때만 후보로 둡니다. 실행 주기, project 또는 worktree, 권한, 보고 범위는 생성 전에 사람이 승인해야 하며, 검증 실패나 명령·정책·범위 변경이 발생하면 후속 실행을 중단하고 재승인을 받도록 설계합니다. 이번에는 실제 예약을 만들지 않습니다.
+
+##### 사람 확인 — Surface 배정
+
+배정안을 문서에 쓰기 전에 다음을 확인합니다.
+
+- 긴 문맥과 정책 판단이 Desktop에 남아 있는가?
+- 구현과 명령 검증이 E3의 현재 실행이 아니라 향후 CLI handoff로 표시됐는가?
+- Codex 자체 점검을 불필요한 Human Gate로 만들지 않았는가?
+- Browser 후보에는 실제 확인할 화면이 있는가?
+- Scheduled task 후보에는 수동 검증, 반복 조건, 중단 조건, 사람 승인이 있는가?
+- 각 surface의 출력이 다음 surface의 입력으로 충분한가?
+
+문제가 있다면 잘못 배정된 작업 묶음만 고칩니다. Surface를 모두 한 번씩 사용하기 위해 정상적인 배정까지 다시 만들지 않습니다.
+
+##### 3. Workflow 진입 문서에 연결하기
+
+승인한 배정안을 `notes/small-development-workflow.md`에 반영합니다. 요청·결정·계획의 상세 내용을 다시 복사하지 않고 기존 기준 문서로 연결합니다.
+
+`## 현재 멈춘 지점`과 `## 바로 다음 작업`에서는 두 흐름을 구분합니다.
+
+- Lab 진행에서는 E3 surface 연결을 완료하고 E4로 넘어갑니다.
+- 향후 제품 구현은 CLI handoff의 입력과 차단 조건을 모두 충족해야 시작할 수 있습니다.
+
+재고 부족·재결제 거부 응답과 실패 정보의 세부 계약처럼 구현에 필요한 미결 사항은 Codex가 임의로 정하지 않습니다. 필요한 계약이 없으면 CLI가 구현을 시작하지 않고 사람에게 필요한 결정을 보고하도록 연결합니다.
+
+##### 4. 새 Codex CLI 세션에서 Handoff 시험하기
+
+저장소 root에서 새 Codex CLI 프로세스를 시작합니다. `AGENTS.md`와 `package.json`이 있는 위치인지 확인하고 `notes/small-development-workflow.md` 하나를 진입점으로 제공합니다. 같은 Desktop Task에 CLI의 입장을 흉내 내게 하는 것은 독립 handoff 시험이 아닙니다.
+
+CLI는 파일을 수정하거나 검증 명령을 실행하지 않고 다음 항목의 충족 여부만 판정합니다.
+
+- 저장소 root와 상대 경로 해석
+- 구현 입력과 승인된 수정·제외 범위
+- 실행할 명령과 순서
+- 명령별 통과 기준
+- 코드·테스트 실패와 미결 정책 실패를 구분한 정지 조건
+- 멈춘 뒤 남길 결과와 구현 재개 조건
+
+누락이 발견되면 답을 추측하지 않습니다. 사람이 finding을 승인한 뒤, 누락된 handoff 항목만 보완합니다. 이때 E3 문서화 완료와 실제 구현 시작 가능 상태를 구분합니다. 구현이 차단되어 있어도 차단 이유와 재개 조건이 정확히 연결됐다면 E3의 handoff 설계는 완료할 수 있습니다.
+
+##### 5. 같은 CLI에서 `/review` 루프 닫기
+
+`/review`는 스킬이 아니라 Desktop App과 Codex CLI에서 제공되는 전용 review 명령입니다. 이번 단계에서는 CLI의 `Custom review instructions`를 사용해 `notes/small-development-workflow.md`의 E3 변경만 검토합니다. 현재 작업 트리의 다른 uncommitted·untracked 파일을 E3 finding으로 섞지 않도록 파일과 검토 기준을 제한합니다.
+
+Reviewer는 우선순위가 있는 finding을 보고하지만 파일을 수정하지 않습니다. 사람이 반영할 finding을 고른 뒤에는 Desktop으로 다시 이동할 필요 없이 같은 CLI 세션의 주 agent에게 승인된 finding만 수정하게 합니다. 수정 후 `/review`를 다시 실행해 기존 finding이 해결됐는지 확인합니다.
+
+Review에서는 다음을 중점적으로 확인합니다.
+
+- CLI handoff에 저장소 root·입력·통과 기준·정지 조건·구현 차단 조건이 있는가?
+- Browser가 API 정확성 검증을 대신하지 않는가?
+- Computer Use가 GUI 조작이 필요한 경우에만 배정됐는가?
+- Scheduled task 후보에 사람 승인·중단·재개 조건이 있는가?
+- 실제 구현·명령 실행·예약 생성이 추가되지 않았는가?
+
+Surface는 review와 수정이 반복될 때마다 바꾸지 않습니다. 작업의 성격이 달라지는 경계에서 handoff하고, review·승인·수정·재검토는 필요한 맥락을 가진 같은 surface에서 마무리합니다.
+
+##### 왜 이 순서인가
+
+공식 제약을 먼저 확인해야 기능 이름만 보고 잘못 배정하는 일을 줄일 수 있습니다. Desktop에서 승인된 작업 경계를 만든 뒤 새로운 CLI 세션으로 넘기면 문서만으로 실행 가능성을 판정할 수 있고, `/review` 루프를 같은 CLI에서 닫으면 불필요한 surface 왕복 없이 독립 검토를 유지할 수 있습니다.
+
+##### 이 단계에서 자주 나오는 실수
+
+- 8개 workflow 섹션을 작업 묶음 없이 surface 표에 그대로 옮깁니다.
+- 모든 surface를 사용하기 위해 API 검증을 Browser나 Computer Use에 배정합니다.
+- 수동 검증 전 Scheduled task를 만들거나 실패한 예약의 중단 조건을 생략합니다.
+- review finding이 나올 때마다 Desktop과 CLI를 왕복합니다.
 
 #### 검증
 
-- [ ] Desktop App, CLI, Browser, Automation이 모두 한 번 이상 등장합니다.
-- [ ] 각 surface에 입력과 출력이 있습니다.
-- [ ] GUI가 필요 없는 검증을 Computer Use에 배정하지 않았습니다.
-- [ ] Automation 후보에 중단 조건과 사람 확인 지점이 있습니다.
+- [ ] 작업 묶음마다 primary surface·입력·증거·사람 확인·다음 handoff가 있습니다.
+- [ ] CLI handoff에 저장소 root·통과 기준·정지 조건·구현 차단 조건이 있습니다.
+- [ ] Browser와 Computer Use는 실제 화면 또는 GUI 조작이 필요한 경우에만 배정됐습니다.
+- [ ] Scheduled task 후보에 수동 검증·반복 조건·사람 승인·중단·재개 조건이 있습니다.
+- [ ] `/review`에서 사람이 승인한 finding만 같은 CLI 세션에서 반영됐습니다.
+- [ ] 실제 구현·검증 명령·Scheduled task 생성과 `src/`, `tests/` 변경이 없습니다.
 
 ### E4. 네 패턴과 네 해법 연결하기
 
