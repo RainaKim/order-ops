@@ -159,6 +159,17 @@ function validateArtifact(entry, branch, level) {
     }
   }
 
+  for (const section of entry.sectionMinItems ?? []) {
+    const body = sectionBody(content, section.heading);
+    if (countItems(body) < section.minItems) {
+      if (level === 'required') {
+        fail(`${entry.path}의 ${section.heading} 항목 수가 ${section.minItems}개보다 적습니다.`);
+      } else {
+        warn(`${entry.path}의 ${section.heading} 항목 수가 ${section.minItems}개보다 적습니다.`);
+      }
+    }
+  }
+
   if (entry.minItems && countItems(content) < entry.minItems) {
     if (level === 'required') {
       fail(`${entry.path}의 항목 수가 ${entry.minItems}개보다 적습니다.`);

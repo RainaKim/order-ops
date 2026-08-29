@@ -1,10 +1,18 @@
 {
   "lecture": "08",
   "required": [
-    { "path": ".github/ISSUE_TEMPLATE/workflow-task.md", "headings": ["## Summary", "## Context", "## Current Behavior", "## Expected Behavior", "## Scope", "## Out of Scope", "## Acceptance Criteria", "## Human Decision Needed", "## References"] }
+    {
+      "path": ".github/ISSUE_TEMPLATE/workflow-task.md",
+      "headings": ["## Summary", "## Context", "## Current Behavior", "## Expected Behavior", "## Scope", "## Out of Scope", "## Acceptance Criteria", "## Human Decision Needed", "## References"],
+      "patterns": ["^---[\\s\\S]*\\nname:[^\\n]+[\\s\\S]*\\n---", "^---[\\s\\S]*\\nabout:[^\\n]+[\\s\\S]*\\n---"]
+    },
+    {
+      "path": "notes/issue-draft-l08.md",
+      "headings": ["## Summary", "## Context", "## Current Behavior", "## Expected Behavior", "## Scope", "## Out of Scope", "## Acceptance Criteria", "## Human Decision Needed", "## References"],
+      "sectionMinItems": [{ "heading": "## Acceptance Criteria", "minItems": 3 }]
+    }
   ],
-  "optional": [
-    { "path": "notes/issue-draft-l08.md" }
-  ],
-  "runAppChecks": false
+  "optional": [],
+  "runAppChecks": false,
+  "cleanWorktreePaths": ["src", "tests"]
 }
