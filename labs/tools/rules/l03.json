@@ -1,8 +1,9 @@
 {
   "lecture": "03",
-  "required": [],
-  "optional": [
-    { "path": "notes/task-boundary.md", "headings": ["## 요청 분해", "## 단계별 금지 조건", "## Human Gate", "## 멈춤 조건"] }
+  "required": [
+    { "path": "notes/task-boundary.md", "headings": ["## 요청 분해", "## 아직 하지 말 것", "## Human Gate", "## 멈춤 조건"] }
   ],
-  "runAppChecks": false
+  "optional": [],
+  "runAppChecks": false,
+  "cleanWorktreePaths": ["src", "tests"]
 }

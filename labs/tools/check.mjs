@@ -139,6 +139,37 @@ function validateArtifact(entry, branch, level) {
     }
   }
 
+  for (const expected of entry.contains ?? []) {
+    if (!content.includes(expected)) {
+      if (level === 'required') {
+        fail(`${entry.path}에 '${expected}' 내용이 없습니다.`);
+      } else {
+        warn(`${entry.path}에 '${expected}' 내용이 없습니다.`);
+      }
+    }
+  }
+
+  for (const pattern of entry.patterns ?? []) {
+    if (!new RegExp(pattern, 'm').test(content)) {
+      if (level === 'required') {
+        fail(`${entry.path}가 필수 패턴 /${pattern}/을 충족하지 않습니다.`);
+      } else {
+        warn(`${entry.path}가 권장 패턴 /${pattern}/을 충족하지 않습니다.`);
+      }
+    }
+  }
+
+  for (const section of entry.sectionMinItems ?? []) {
+    const body = sectionBody(content, section.heading);
+    if (countItems(body) < section.minItems) {
+      if (level === 'required') {
+        fail(`${entry.path}의 ${section.heading} 항목 수가 ${section.minItems}개보다 적습니다.`);
+      } else {
+        warn(`${entry.path}의 ${section.heading} 항목 수가 ${section.minItems}개보다 적습니다.`);
+      }
+    }
+  }
+
   if (entry.minItems && countItems(content) < entry.minItems) {
     if (level === 'required') {
       fail(`${entry.path}의 항목 수가 ${entry.minItems}개보다 적습니다.`);
