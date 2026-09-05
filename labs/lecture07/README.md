@@ -46,7 +46,7 @@ Codex에게 읽기 전용 subagent 두 개를 병렬로 요청합니다. 첫 age
 목표: 두 subagent로 주문 상태 정책의 문서 근거와 코드 근거를 병렬 조사한다.
 문맥: agent A는 @notes/pending-decisions.md @notes/order-status-plan.md, agent B는 @src/store.ts @src/payments.ts @src/admin.ts를 읽는다.
 제약: 정책을 선택하거나 파일을 수정하지 말고, 두 결과를 섞지 않은 채 근거와 충돌만 보고한다.
-완료 조건: 각 결과의 출처와 상태·전환·삭제 영향이 비교 가능하다. 추가 판단 항목: ______
+완료 조건: 각 결과의 출처와 상태·전환·삭제 영향이 비교 가능하다. 추가 판단 항목: 실패 주문 보존 이유
 ```
 
 두 agent의 Task를 직접 열어 실제로 서로 다른 입력을 읽었는지 확인합니다. 통합 결과가 나오면 다음 결정을 말로 확정하고 한 줄 이유를 남깁니다.
