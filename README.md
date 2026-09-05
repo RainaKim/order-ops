@@ -23,8 +23,9 @@
 2. 오른쪽 위의 **Fork**를 누릅니다.
 3. Owner를 자신의 GitHub 계정으로 선택합니다.
 4. Repository name에 `order-ops`를 입력합니다.
-5. **Create fork**를 눌러 개인 fork를 만듭니다.
-6. 생성된 저장소에 **Issues** 탭이 보이는지 확인합니다.
+5. **Copy the DEFAULT branch only**를 선택합니다. 강의용 기본 브랜치인 `main`만 복사합니다.
+6. **Create fork**를 눌러 개인 fork를 만듭니다.
+7. 생성된 저장소에 **Issues** 탭이 보이는지 확인합니다.
 
 실습 커밋, Issue, Pull Request는 자신의 fork에 남깁니다. 원본 저장소에는 강의 자료 업데이트를 받을 때만 접근합니다.
 
