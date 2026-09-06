@@ -4,7 +4,7 @@
 
 - `notes/`의 작업별 결정을 여러 작업에서 다시 읽는 `docs/` 정책으로 승격합니다.
 - 상태 전이표의 금지 행을 미래의 거부 테스트와 연결합니다.
-- 병렬 조사, Plan mode, 독립 Review, Memory 없는 blind 확인을 목적에 맞게 사용합니다.
+- 병렬 조사, Plan mode, 독립 Review, 이전 대화 없는 blind 확인을 목적에 맞게 사용합니다.
 - `docs/order-policy.md`, `docs/payment-policy.md`, `docs/inventory-policy.md`와 root `AGENTS.md` 연결을 완성합니다.
 - 앱 코드는 바꾸지 않고 정책 문서가 실제 다음 Task를 안내하는지 증명합니다.
 
@@ -22,7 +22,7 @@
 | E1 | 상태와 전환의 근거를 분리 조사하고 정책을 결정합니다. | Subagents | `docs/order-policy.md`의 상태 정의·전환 조건 |
 | E2 | 결제와 재고의 책임 경계를 편집 전에 승인합니다. | `/plan` | `docs/payment-policy.md`, `docs/inventory-policy.md` |
 | E3 | 관리자 조회 기준을 쓰고 독립적으로 반박합니다. | `/review` | `docs/order-policy.md`의 관리자 조회 기준 |
-| E4 | 정책 routing이 이전 대화 없이 작동하는지 확인합니다. | `/memories`, 새 Task | root `AGENTS.md` 연결과 blind 확인 |
+| E4 | 정책 routing이 이전 대화 없이 작동하는지 확인합니다. | 새 Task | root `AGENTS.md` 연결과 blind 확인 |
 
 ## 3. 실습
 
@@ -145,7 +145,7 @@ Review는 파일을 수정하지 않습니다. finding마다 `수용 / 거절 / 
 - reviewer의 제안을 권위처럼 전부 반영하지 않고 근거로 선별했나요?
 - 실패 주문은 보존하지만 카드 정보나 내부 예외는 새지 않나요?
 
-### E4. AGENTS.md routing을 Memory 없는 새 Task에서 증명하기
+### E4. AGENTS.md routing을 별도의 새 Task에서 증명하기
 
 정책을 만들어도 다음 Task가 찾지 못하면 지속 기준이 아닙니다. `AGENTS.md`에는 본문을 복제하지 않고 변경 유형별 정책 경로와 멈춤 조건만 연결합니다.
 
@@ -153,7 +153,7 @@ Review는 파일을 수정하지 않습니다. finding마다 `수용 / 거절 / 
 
 - 주문 상태·결제·재고·관리자 변경은 각각 어떤 정책으로 routing되어야 하나요?
 - 정책 문서가 없거나 서로 충돌하면 어느 행동 전에 멈춰야 하나요?
-- blind 확인에서 이전 대화와 Memory의 도움을 어떻게 제거할 수 있나요?
+- blind 확인에서 이전 대화의 도움을 어떻게 제거할 수 있나요?
 
 #### 실행
 
@@ -166,7 +166,7 @@ Codex에게 root `AGENTS.md`의 기존 섹션을 보존하면서 `Before Editing
 완료 조건: ______ 변경이 올바른 정책으로 연결되고 누락·충돌 시 편집 전에 멈춘다.
 ```
 
-`/memories`에서 새 Task가 기존 local memories를 사용하지 않도록 설정한 뒤 새 Task를 만듭니다. 정책 파일명이나 경로를 알려 주지 않고, 주문 상태 변경 전에 읽을 기준과 멈춤 조건을 찾아 보고하게 합니다. Memory 제어가 없다면 새로운 CLI 세션을 사용하고 그 한계를 기록합니다.
+현재 Task를 fork하거나 resume하지 말고, 같은 checkout을 사용하는 별도의 새 Task를 만듭니다. 아직 커밋하지 않은 정책 문서가 다른 worktree에서 사라지지 않도록 새 Task의 작업 디렉터리가 현재 Task와 같은지 확인합니다. 정책 파일명이나 경로를 알려 주지 않고, 주문 상태 변경 전에 읽을 기준과 멈춤 조건을 찾아 보고하게 합니다.
 
 새 Task가 정책을 못 찾으면 그 Task에 답을 알려 주지 않습니다. 원래 Task에서 `AGENTS.md` routing만 고친 뒤 blind 확인을 반복합니다. 이것은 지식 퀴즈가 아니라 `AGENTS.md`가 세션 시작 시 자동 주입되어 올바른 문서로 연결하는지 확인하는 검증입니다.
 
@@ -175,13 +175,13 @@ Codex에게 root `AGENTS.md`의 기존 섹션을 보존하면서 `Before Editing
 - [ ] 세 정책 경로와 변경 유형별 읽는 조건이 `Before Editing`에 있습니다.
 - [ ] 정책 누락·충돌 시 사람 확인 전 코드 수정을 멈춥니다.
 - [ ] 확정한 질문의 선택 결과와 결정일이 `pending-decisions.md`에 있습니다.
-- [ ] Memory 없는 새 Task가 정책 경로를 다시 듣지 않고 관련 문서를 찾았습니다.
+- [ ] 이전 대화가 없는 새 Task가 정책 경로를 다시 듣지 않고 관련 문서를 찾았습니다.
 - [ ] `node labs/tools/check.mjs 07`이 통과하고 `src/`, `tests/` diff가 없습니다.
 
 자기점검:
 
 - blind 프롬프트에 정책 경로나 내용을 복사했나요? 그렇다면 자동 routing 검증이 아닙니다.
-- 새 Task가 정책을 찾은 근거가 Memory가 아니라 `AGENTS.md`임을 설명할 수 있나요?
+- 새 Task가 정책을 찾은 근거가 이전 대화가 아니라 `AGENTS.md`임을 설명할 수 있나요?
 - 정책 본문을 `AGENTS.md`에 복제해 컨텍스트 예산을 낭비하지 않았나요?
 
 ## 4. Self-check
