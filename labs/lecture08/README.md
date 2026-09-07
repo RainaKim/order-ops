@@ -120,28 +120,22 @@ CLI에서 front matter 경계, 아홉 heading의 존재·순서와 `git diff -- 
 
 Acceptance Criteria는 해야 할 일을 길게 설명하는 곳이 아니라 완료 후 참 또는 거짓으로 판정할 계약입니다. 구현 파일과 함수명을 미리 고정하지 않고도 입력, 행동, 응답·상태·저장 결과와 검증 증거를 요구할 수 있어야 합니다.
 
-#### 설계 질문
-
-- 각 기준은 어떤 행동 뒤 어떤 결과를 관찰해야 통과하나요?
-- 여러 결정을 한 체크박스에 묶어 일부만 통과하는 상황을 만들지 않았나요?
-- 정책 문서와 충돌하거나 구현 방법을 고정하는 안내가 있나요?
-
 #### 실행
 
-Codex에게 template의 `## Acceptance Criteria` 작성 안내만 검토하게 합니다. E1 입력을 실제 기준으로 채우지 않고, 작성자가 각 체크박스에 시작 조건·행동·관찰 결과·검증 근거를 남길 수 있는지 반례로 확인합니다.
+Codex에게 `.github/ISSUE_TEMPLATE/workflow-task.md`의 `## Acceptance Criteria` 입력 영역을 바로 다듬게 합니다. 다른 필드와 front matter는 그대로 두고, 작성자가 각 체크박스에 관찰 가능한 결과를 남길 수 있게 합니다.
 
 ```text
-목표: template의 Acceptance Criteria 작성 안내를 판정 가능하게 다듬는다.
-문맥: 현재 template과 세 정책 문서의 판정 기준을 사용한다.
-제약: 실제 Issue의 기준을 대신 쓰거나 다른 여덟 필드를 수정하지 않는다.
-완료 조건: 체크박스 하나가 결정 하나와 관찰 가능한 결과 하나를 요구한다.
+목표: .github/ISSUE_TEMPLATE/workflow-task.md의 Acceptance Criteria 영역을 판정 가능한 체크박스 형식으로 다듬는다.
+문맥: 현재 template과 세 정책 문서를 사용한다.
+제약: `잘 동작한다`처럼 판정할 수 없는 표현이나 특정 요청의 답을 넣지 않고, 다른 여덟 필드와 front matter를 수정하지 않는다.
+완료 조건: 완료 기준을 체크박스로 작성할 수 있고, 각 항목이 상태·응답·저장 결과·테스트 증거처럼 관찰 가능한 결과를 요구한다.
 ```
 
 ##### 사람 확인 — 완료 계약
 
 `잘 동작한다`, `적절히 처리한다`, `필요하면 테스트한다`처럼 실행 후에도 판정할 수 없는 문장을 걸러냅니다. 한 체크박스가 상태·응답·재고·관리자 표시를 모두 묶게 하지 않고, 정책 선택이 남아 있으면 Acceptance Criteria에 숨기지 않고 `Human Decision Needed`로 돌려보냅니다.
 
-승인 후 Codex에게 `## Acceptance Criteria`의 안내만 최소 수정하게 합니다. CLI에서 다른 heading과 front matter가 보존됐는지 diff를 확인합니다.
+CLI에서 다른 heading과 front matter가 보존됐는지 diff를 확인합니다.
 
 #### 검증
 
