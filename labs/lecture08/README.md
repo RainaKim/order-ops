@@ -96,10 +96,10 @@ E1의 누락 목록을 한 요청의 답으로 채우는 대신, 다음 Issue에
 Codex에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대조해 아홉 필드의 목적과 이웃 필드와의 경계를 표로 먼저 제시하게 합니다. 필드 이름과 순서는 `Summary`, `Context`, `Current Behavior`, `Expected Behavior`, `Scope`, `Out of Scope`, `Acceptance Criteria`, `Human Decision Needed`, `References`로 고정합니다.
 
 ```text
-목표: 빈 Markdown Issue template을 만든다.
-문맥: E1 진단과 workflow skeleton, GitHub template 위치 규칙을 사용한다.
-제약: 본문 필드는 `Summary`, `Context`, `Current Behavior`, `Expected Behavior`, `Scope`, `Out of Scope`, `Acceptance Criteria`, `Human Decision Needed`, `References` 순서로 유지하고, 특정 요청의 내용이나 구현 답을 미리 채우지 않는다.
-완료 조건: 유효한 front matter와 필드별 작성 질문이 있는 빈 template이다.
+목표: .github/ISSUE_TEMPLATE/workflow-task.md에 작업 가능한 Issue의 아홉 필드 빈 구조를 만든다.
+문맥: E1 진단 결과와 @labs/CONVENTIONS.md를 사용한다.
+제약: 특정 요청의 내용을 채우지 않고, 제외 범위와 사람 결정 필요를 독립 필드로 둔다.
+완료 조건: 요약·맥락·현재 동작·기대 동작·범위·제외 범위·완료 기준·사람 결정 필요·참고 자료 아홉 필드가 빈 구조로 있다.
 ```
 
 ##### 사람 확인 — 필드 책임
