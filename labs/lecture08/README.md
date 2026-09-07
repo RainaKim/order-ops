@@ -21,9 +21,9 @@
 
 | 역할 | 선택 |
 | --- | --- |
-| 누락·경계·정책 충돌 판단 | Desktop App에서 Sol을 사용합니다. |
-| template과 실제 draft 작성 | 사람이 범위를 승인한 뒤 Terra를 사용합니다. |
-| 형식·경로·diff 점검 | CLI와 Luna를 사용합니다. |
+| 누락·경계·정책 충돌 판단 | Desktop App의 기본 모델로 시작하고, 판단이 복잡하면 reasoning effort를 높입니다. |
+| template과 실제 draft 작성 | 사람이 범위를 승인한 뒤 Codex에게 작성을 맡깁니다. |
+| 형식·경로·diff 점검 | CLI에서 빠르고 비용 효율적인 설정을 사용합니다. |
 | GitHub에서 실제 표시 확인 | default branch 반영 후 Browser를 사용합니다. |
 
 Issue template은 답을 대신 쓰는 문서가 아니라 필요한 입력을 빠뜨리지 않게 하는 플랫폼 설정입니다. Markdown template은 default branch의 `.github/ISSUE_TEMPLATE`에 있어야 새 Issue 선택 화면에 나타나며, `name`과 `about` front matter가 필요합니다. 자세한 동작은 [GitHub 공식 문서](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates)를 기준으로 합니다.
@@ -52,7 +52,7 @@ Issue template은 답을 대신 쓰는 문서가 아니라 필요한 입력을 �
 
 #### 실행
 
-Desktop App에서 `@labs/lecture08/inputs/bad-issue-sample.md`를 연결합니다. Sol에게 Lab 07 정책과 현재 코드를 읽고 각 문장을 `확인된 요청`, `코드로 확인할 사실`, `사람 결정`, `근거 없는 추정`으로 분류하게 합니다. 아직 `.github/`나 draft를 만들지 않습니다.
+Desktop App에서 `@labs/lecture08/inputs/bad-issue-sample.md`를 연결합니다. Codex에게 Lab 07 정책과 현재 코드를 읽고 각 문장을 `확인된 요청`, `코드로 확인할 사실`, `사람 결정`, `근거 없는 추정`으로 분류하게 합니다. 아직 `.github/`나 draft를 만들지 않습니다.
 
 ```text
 목표: 제공된 Issue가 작업 시작에 부족한 이유를 진단한다.
@@ -93,7 +93,7 @@ E1의 누락 목록을 한 요청의 답으로 채우는 대신, 다음 Issue에
 
 #### 실행
 
-Sol에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대조해 아홉 필드의 목적과 이웃 필드와의 경계를 표로 먼저 제시하게 합니다. 필드 이름과 순서는 `Summary`, `Context`, `Current Behavior`, `Expected Behavior`, `Scope`, `Out of Scope`, `Acceptance Criteria`, `Human Decision Needed`, `References`로 고정합니다.
+Codex에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대조해 아홉 필드의 목적과 이웃 필드와의 경계를 표로 먼저 제시하게 합니다. 필드 이름과 순서는 `Summary`, `Context`, `Current Behavior`, `Expected Behavior`, `Scope`, `Out of Scope`, `Acceptance Criteria`, `Human Decision Needed`, `References`로 고정합니다.
 
 ```text
 목표: 빈 Markdown Issue template을 만든다.
@@ -111,9 +111,9 @@ Sol에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대조
 - Human Decision Needed가 Codex의 임의 선택을 막는가?
 - References가 정책·코드·관련 기록의 위치를 요구하는가?
 
-승인 후 Terra에게 `.github/ISSUE_TEMPLATE/workflow-task.md`를 만들게 합니다. YAML front matter에는 template 선택 화면에 필요한 `name`과 `about`을 포함하고, 본문은 아홉 H2와 작성 안내만 둡니다. 특정 주문 상태, 응답, 파일 경로나 정책 답은 채우지 않습니다.
+승인 후 Codex에게 `.github/ISSUE_TEMPLATE/workflow-task.md`를 만들게 합니다. YAML front matter에는 template 선택 화면에 필요한 `name`과 `about`을 포함하고, 본문은 아홉 H2와 작성 안내만 둡니다. 특정 주문 상태, 응답, 파일 경로나 정책 답은 채우지 않습니다.
 
-Luna로 front matter 경계, 아홉 heading의 존재·순서와 `git diff -- .github/ISSUE_TEMPLATE/workflow-task.md`를 확인합니다. Acceptance Criteria의 상세 안내는 E3에서 검토하므로 다른 필드까지 다시 작성하지 않습니다.
+CLI에서 front matter 경계, 아홉 heading의 존재·순서와 `git diff -- .github/ISSUE_TEMPLATE/workflow-task.md`를 확인합니다. Acceptance Criteria의 상세 안내는 E3에서 검토하므로 다른 필드까지 다시 작성하지 않습니다.
 
 #### 검증
 
@@ -135,7 +135,7 @@ Acceptance Criteria는 해야 할 일을 길게 설명하는 곳이 아니라 �
 
 #### 실행
 
-Sol에게 template의 `## Acceptance Criteria` 작성 안내만 검토하게 합니다. E1 입력을 실제 기준으로 채우지 않고, 작성자가 각 체크박스에 시작 조건·행동·관찰 결과·검증 근거를 남길 수 있는지 반례로 확인합니다.
+Codex에게 template의 `## Acceptance Criteria` 작성 안내만 검토하게 합니다. E1 입력을 실제 기준으로 채우지 않고, 작성자가 각 체크박스에 시작 조건·행동·관찰 결과·검증 근거를 남길 수 있는지 반례로 확인합니다.
 
 ```text
 목표: template의 Acceptance Criteria 작성 안내를 판정 가능하게 다듬는다.
@@ -148,7 +148,7 @@ Sol에게 template의 `## Acceptance Criteria` 작성 안내만 검토하게 합
 
 `잘 동작한다`, `적절히 처리한다`, `필요하면 테스트한다`처럼 실행 후에도 판정할 수 없는 문장을 걸러냅니다. 한 체크박스가 상태·응답·재고·관리자 표시를 모두 묶게 하지 않고, 정책 선택이 남아 있으면 Acceptance Criteria에 숨기지 않고 `Human Decision Needed`로 돌려보냅니다.
 
-승인 후 Terra에게 `## Acceptance Criteria`의 안내만 최소 수정하게 합니다. Luna로 다른 heading과 front matter가 보존됐는지 diff를 확인합니다.
+승인 후 Codex에게 `## Acceptance Criteria`의 안내만 최소 수정하게 합니다. CLI에서 다른 heading과 front matter가 보존됐는지 diff를 확인합니다.
 
 #### 검증
 
@@ -171,7 +171,7 @@ Sol에게 template의 `## Acceptance Criteria` 작성 안내만 검토하게 합
 
 #### 실행
 
-Terra에게 E1 진단, 완성된 template, 세 정책 문서와 현재 코드를 사용해 먼저 필드별 입력 근거표를 만들게 합니다. 사람이 누락 질문에 답하고 범위를 승인하기 전에는 draft 파일을 쓰지 않습니다.
+Codex에게 E1 진단, 완성된 template, 세 정책 문서와 현재 코드를 사용해 먼저 필드별 입력 근거표를 만들게 합니다. 사람이 누락 질문에 답하고 범위를 승인하기 전에는 draft 파일을 쓰지 않습니다.
 
 ```text
 목표: 제공 입력을 template 구조의 실제 Issue draft로 변환한다.
@@ -188,7 +188,7 @@ Terra에게 E1 진단, 완성된 template, 세 정책 문서와 현재 코드를
 - Acceptance Criteria가 세 개 이상이며 각각 독립적으로 판정 가능한가?
 - References가 관련 정책과 조사 근거를 연결하는가?
 
-승인 후 `notes/issue-draft-l08.md`를 작성하고 Luna로 template의 아홉 필드와 대조합니다. `node labs/tools/check.mjs 08`과 문서 diff를 확인한 뒤 Lab 08 변경을 커밋합니다.
+승인 후 `notes/issue-draft-l08.md`를 작성하고 CLI에서 template의 아홉 필드와 대조합니다. `node labs/tools/check.mjs 08`과 문서 diff를 확인한 뒤 Lab 08 변경을 커밋합니다.
 
 ##### Browser에서 실제 표시 확인
 
