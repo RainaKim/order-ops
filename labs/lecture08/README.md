@@ -12,7 +12,7 @@
 ## 1. 시작 전 상태 확인
 
 - Lab 07의 세 정책 문서와 root `AGENTS.md` 연결이 완료돼야 합니다.
-- `notes/order-status-plan.md`와 `docs/templates/workflow-skeleton.md`를 읽을 수 있어야 합니다.
+- `notes/order-status-plan.md`를 읽을 수 있어야 합니다.
 - `.github/`는 아직 없어야 합니다. 이 lab에서 처음 만듭니다.
 - 입력은 `labs/lecture08/inputs/bad-issue-sample.md`입니다.
 - 이번 lab에서도 `src/`와 `tests/`를 수정하지 않습니다.
@@ -33,7 +33,7 @@ Issue template은 답을 대신 쓰는 문서가 아니라 필요한 입력을 �
 | 단계 | 핵심 작업 | 결과 |
 | --- | --- | --- |
 | E1 | 나쁜 Issue가 작업 시작에 부족한 이유를 진단합니다. | 대화의 누락·결정 필요 목록 |
-| E2 | 메타데이터와 아홉 본문 필드를 설계합니다. | `.github/ISSUE_TEMPLATE/workflow-task.md` |
+| E2 | 메타데이터와 아홉 본문 필드가 있는 빈 template을 만듭니다. | `.github/ISSUE_TEMPLATE/workflow-task.md` |
 | E3 | Acceptance Criteria 안내가 판정 가능한지 검토합니다. | 같은 template의 완료 기준 작성 규칙 |
 | E4 | 제공 입력을 실제 Issue draft로 변환하고 표시를 확인합니다. | `notes/issue-draft-l08.md`와 완료 커밋 |
 
@@ -71,7 +71,7 @@ Desktop App에서 `@labs/lecture08/inputs/bad-issue-sample.md`를 연결합니�
 - “재고 문제”처럼 범위가 넓은 표현을 구체적인 선택 하나로 임의 축소하지 않았는가?
 - 구현 방법과 완료 조건을 같은 누락으로 취급하지 않았는가?
 
-승인한 진단은 E2의 필드 설계와 E4의 실제 draft 변환에 재사용합니다. 별도 notes 파일로 복제하지 않습니다.
+승인한 진단은 E2의 빈 template 생성과 E4의 실제 draft 변환에 재사용합니다. 별도 notes 파일로 복제하지 않습니다.
 
 #### 검증
 
@@ -80,20 +80,13 @@ Desktop App에서 `@labs/lecture08/inputs/bad-issue-sample.md`를 연결합니�
 - [ ] 기존 정책으로 답할 내용과 새로 물을 내용이 구분됩니다.
 - [ ] `.github/`, `notes/issue-draft-l08.md`, 앱 코드에 변화가 없습니다.
 
-### E2. 작업 가능한 Issue template 설계하기
+### E2. 작업 가능한 Issue template 만들기
 
 E1의 누락 목록을 한 요청의 답으로 채우는 대신, 다음 Issue에서도 같은 종류의 정보를 요구하는 빈 구조로 바꿉니다. template에는 특정 주문 요청의 결과가 아니라 작성자가 답해야 할 질문과 경계만 남습니다.
 
-#### 설계 질문
-
-- Context와 Current Behavior는 무엇을 다르게 요구해야 하나요?
-- Expected Behavior와 Acceptance Criteria는 어떻게 구분하나요?
-- Scope·Out of Scope·Human Decision Needed가 각각 막는 범위 확장은 무엇인가요?
-- References는 정책 내용을 복사하지 않고 어떻게 기준 문서로 연결하나요?
-
 #### 실행
 
-Codex에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대조해 아홉 필드의 목적과 이웃 필드와의 경계를 표로 먼저 제시하게 합니다. 필드 이름과 순서는 `Summary`, `Context`, `Current Behavior`, `Expected Behavior`, `Scope`, `Out of Scope`, `Acceptance Criteria`, `Human Decision Needed`, `References`로 고정합니다.
+Codex에게 E1 진단 결과와 `labs/CONVENTIONS.md`를 사용해 `.github/ISSUE_TEMPLATE/workflow-task.md`를 바로 만들게 합니다. 특정 요청의 답은 넣지 않고, 아홉 필드는 각각 작성 안내만 가진 빈 구조로 둡니다.
 
 ```text
 목표: .github/ISSUE_TEMPLATE/workflow-task.md에 작업 가능한 Issue의 아홉 필드 빈 구조를 만든다.
@@ -102,7 +95,9 @@ Codex에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대�
 완료 조건: 요약·맥락·현재 동작·기대 동작·범위·제외 범위·완료 기준·사람 결정 필요·참고 자료 아홉 필드가 빈 구조로 있다.
 ```
 
-##### 사람 확인 — 필드 책임
+생성된 파일의 YAML front matter에는 template 선택 화면에 필요한 `name`과 `about`이 있어야 합니다. 본문은 아홉 H2와 작성 안내만 두고, 특정 주문 상태, 응답, 파일 경로나 정책 답을 포함하지 않습니다.
+
+##### 사람 확인 — 생성 결과
 
 - 원 요청과 배경을 Context에 중복해서 쓰게 하지 않는가?
 - Current Behavior는 관찰 사실, Expected Behavior는 승인된 목표를 요구하는가?
@@ -110,8 +105,6 @@ Codex에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대�
 - Scope와 Out of Scope가 실제 변경 경계를 양쪽에서 제한하는가?
 - Human Decision Needed가 Codex의 임의 선택을 막는가?
 - References가 정책·코드·관련 기록의 위치를 요구하는가?
-
-승인 후 Codex에게 `.github/ISSUE_TEMPLATE/workflow-task.md`를 만들게 합니다. YAML front matter에는 template 선택 화면에 필요한 `name`과 `about`을 포함하고, 본문은 아홉 H2와 작성 안내만 둡니다. 특정 주문 상태, 응답, 파일 경로나 정책 답은 채우지 않습니다.
 
 CLI에서 front matter 경계, 아홉 heading의 존재·순서와 `git diff -- .github/ISSUE_TEMPLATE/workflow-task.md`를 확인합니다. Acceptance Criteria의 상세 안내는 E3에서 검토하므로 다른 필드까지 다시 작성하지 않습니다.
 
