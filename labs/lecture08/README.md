@@ -98,7 +98,7 @@ Codex에게 E1의 누락 분류와 `docs/templates/workflow-skeleton.md`를 대�
 ```text
 목표: 빈 Markdown Issue template을 만든다.
 문맥: E1 진단과 workflow skeleton, GitHub template 위치 규칙을 사용한다.
-제약: 아홉 필드 순서를 유지하고 ______ 요청의 내용이나 구현 답을 미리 채우지 않는다.
+제약: 본문 필드는 `Summary`, `Context`, `Current Behavior`, `Expected Behavior`, `Scope`, `Out of Scope`, `Acceptance Criteria`, `Human Decision Needed`, `References` 순서로 유지하고, 특정 요청의 내용이나 구현 답을 미리 채우지 않는다.
 완료 조건: 유효한 front matter와 필드별 작성 질문이 있는 빈 template이다.
 ```
 
