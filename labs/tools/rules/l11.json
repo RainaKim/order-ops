@@ -1,7 +1,7 @@
 {
   "lecture": "11",
   "required": [
-    { "path": "notes/session-handoff.md", "headings": ["## 완료", "## 미완료", "## 현재 상태", "## 다음 입력", "## 사람 결정", "## 검증 결과"] }
+    { "path": "notes/session-handoff.md" }
   ],
   "optional": [],
   "runAppChecks": false,

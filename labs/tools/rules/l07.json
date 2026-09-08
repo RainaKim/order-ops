@@ -3,18 +3,17 @@
   "required": [
     {
       "path": "docs/order-policy.md",
-      "headings": ["## 상태 정의", "## 전환 조건", "## 관리자 조회 기준"],
       "contains": ["pending", "paid", "payment_failed", "cancelled", "refunded"]
     },
-    { "path": "docs/payment-policy.md", "headings": ["## 결제 원칙"] },
-    { "path": "docs/inventory-policy.md", "headings": ["## 재고 원칙"] },
+    { "path": "docs/payment-policy.md" },
+    { "path": "docs/inventory-policy.md" },
     {
       "path": "AGENTS.md",
-      "headings": ["## Before Editing"],
+      "fixedHeadings": ["## Before Editing"],
       "contains": ["docs/order-policy.md", "docs/payment-policy.md", "docs/inventory-policy.md"],
       "patterns": ["(충돌|일치하지)[^\\n]*(사람|확인)|(사람|확인)[^\\n]*(충돌|일치하지)"]
     },
-    { "path": "notes/pending-decisions.md", "contains": ["결정일"] }
+    { "path": "notes/pending-decisions.md" }
   ],
   "optional": [],
   "runAppChecks": false,

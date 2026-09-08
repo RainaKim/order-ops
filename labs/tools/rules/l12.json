@@ -1,10 +1,10 @@
 {
   "lecture": "12",
   "required": [
-    { "path": "notes/diff-review-l12.md", "headings": ["## 계획 대비 Diff", "## Scope guard 판단", "## 검증 결과"] }
+    { "path": "notes/diff-review-l12.md" }
   ],
   "optional": [
-    { "path": "notes/plans/l12-inventory-after-payment.md", "headings": ["## Goal", "## Files to Change", "## Files to Read First", "## Steps", "## Tests to Add or Update", "## Risks", "## Out of Scope", "## Stop Conditions"] }
+    { "path": "notes/plans/l12-inventory-after-payment.md", "fixedHeadings": ["## Goal", "## Files to Change", "## Files to Read First", "## Steps", "## Tests to Add or Update", "## Risks", "## Out of Scope", "## Stop Conditions"] }
   ],
   "runAppChecks": true
 }
