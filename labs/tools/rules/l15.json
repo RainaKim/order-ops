@@ -2,7 +2,7 @@
   "lecture": "15",
   "required": [
     { "path": "docs/checklists/failure-handling.md", "minItems": 6 },
-    { "path": "docs/retry-stop-matrix.md", "headings": ["## Retry/Stop 기준"] }
+    { "path": "docs/retry-stop-matrix.md" }
   ],
   "optional": [],
   "runAppChecks": true

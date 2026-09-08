@@ -2,8 +2,8 @@
   "lecture": "16",
   "required": [
     { "path": "docs/checklists/pr-preflight.md", "minItems": 7 },
-    { "path": ".github/pull_request_template.md", "headings": ["## Summary", "## Changed Files", "## Verification", "## Risk", "## Rollback Note", "## Reviewer Notes"] },
-    { "path": "notes/pr-draft-l16.md", "headings": ["## Summary", "## Changed Files", "## Verification", "## Risk", "## Rollback Note", "## Reviewer Notes", "## Review-ready 판정"] }
+    { "path": ".github/pull_request_template.md", "fixedHeadings": ["## Summary", "## Changed Files", "## Verification", "## Risk", "## Rollback Note", "## Reviewer Notes"] },
+    { "path": "notes/pr-draft-l16.md", "fixedHeadings": ["## Summary", "## Changed Files", "## Verification", "## Risk", "## Rollback Note", "## Reviewer Notes", "## Review-ready 판정"] }
   ],
   "optional": [],
   "runAppChecks": true

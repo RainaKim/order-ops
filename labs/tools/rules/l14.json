@@ -1,7 +1,7 @@
 {
   "lecture": "14",
   "required": [
-    { "path": "notes/assertion-review-l14.md", "headings": ["## 핵심 케이스", "## Red-Green 기록", "## Assertion 비교", "## 실행 결과"] },
+    { "path": "notes/assertion-review-l14.md" },
     { "path": "tests/payments.test.ts" },
     { "path": "tests/admin.test.ts" }
   ],

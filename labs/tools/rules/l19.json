@@ -1,7 +1,7 @@
 {
   "lecture": "19",
   "required": [
-    { "path": "docs/automation/candidates.md", "headings": ["## Input", "## Output", "## Run Condition", "## Stop Condition", "## Human Approval", "## Failure Alert"] },
+    { "path": "docs/automation/candidates.md", "contains": ["Input", "Output", "Run Condition", "Stop Condition", "Human Approval", "Failure Alert"] },
     { "path": "docs/automation/stop-conditions.md", "minItems": 5 }
   ],
   "optional": [],

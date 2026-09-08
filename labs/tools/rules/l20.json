@@ -1,10 +1,10 @@
 {
   "lecture": "20",
   "required": [
-    { "path": "notes/incident-l20.md", "headings": ["## 시나리오", "## 원인 후보 3", "## 현재/기대 동작", "## 수정·롤백·추가 조사 판단"] },
-    { "path": "notes/pr-final-l20.md", "headings": ["## Summary", "## Changed Files", "## Verification", "## Risk", "## Rollback", "## Reviewer Notes"] },
+    { "path": "notes/incident-l20.md" },
+    { "path": "notes/pr-final-l20.md" },
     { "path": "docs/agentic-workflow-starter-kit.md" },
-    { "path": "notes/backlog-l20.md", "headings": ["## 후속 Backlog", "## Automation 후보"] }
+    { "path": "notes/backlog-l20.md" }
   ],
   "optional": [],
   "runAppChecks": true

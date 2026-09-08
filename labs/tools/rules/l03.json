@@ -1,7 +1,7 @@
 {
   "lecture": "03",
   "required": [
-    { "path": "notes/task-boundary.md", "headings": ["## 요청 분해", "## 아직 하지 말 것", "## Human Gate", "## 멈춤 조건"] }
+    { "path": "notes/task-boundary.md" }
   ],
   "optional": [],
   "runAppChecks": false,

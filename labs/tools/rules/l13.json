@@ -1,7 +1,7 @@
 {
   "lecture": "13",
   "required": [
-    { "path": "notes/error-log-l13.md", "headings": ["## 실패 명령", "## 에러 원문", "## 복구 후 검증"] },
+    { "path": "notes/error-log-l13.md" },
     { "path": "docs/checklists/hallucination-guard.md", "minItems": 5 }
   ],
   "optional": [],

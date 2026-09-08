@@ -95,14 +95,23 @@ function countItems(markdown) {
   return Math.max(listItems, Math.max(0, tableRows - 1));
 }
 
+function headingIndex(markdown, heading) {
+  const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return markdown.search(new RegExp(`^${escapedHeading}\\s*$`, 'm'));
+}
+
 function sectionBody(markdown, heading) {
-  const start = markdown.indexOf(heading);
+  const start = headingIndex(markdown, heading);
   if (start < 0) {
     return '';
   }
   const afterHeading = markdown.slice(start + heading.length);
   const nextHeading = afterHeading.search(/^#{1,2}\s+/m);
-  return (nextHeading < 0 ? afterHeading : afterHeading.slice(0, nextHeading))
+  return (nextHeading < 0 ? afterHeading : afterHeading.slice(0, nextHeading)).trim();
+}
+
+function sectionText(markdown, heading) {
+  return sectionBody(markdown, heading)
     .replace(/[`#|\-*_[\]]/g, '')
     .trim();
 }
@@ -120,17 +129,28 @@ function validateArtifact(entry, branch, level) {
 
   pass(`${entry.path} 파일이 있습니다.`);
 
-  for (const heading of entry.headings ?? []) {
-    if (!content.includes(heading)) {
+  let previousHeadingIndex = -1;
+  for (const heading of entry.fixedHeadings ?? []) {
+    const currentHeadingIndex = headingIndex(content, heading);
+    if (currentHeadingIndex < 0) {
       if (level === 'required') {
-        fail(`${entry.path}에 ${heading} 헤딩이 없습니다.`);
+        fail(`${entry.path}에 고정 헤딩 ${heading}이 없습니다.`);
       } else {
-        warn(`${entry.path}에 ${heading} 헤딩이 없습니다.`);
+        warn(`${entry.path}에 고정 헤딩 ${heading}이 없습니다.`);
       }
       continue;
     }
 
-    if (sectionBody(content, heading).length < 20) {
+    if (currentHeadingIndex < previousHeadingIndex) {
+      if (level === 'required') {
+        fail(`${entry.path}의 고정 헤딩 ${heading} 순서가 잘못됐습니다.`);
+      } else {
+        warn(`${entry.path}의 고정 헤딩 ${heading} 순서가 잘못됐습니다.`);
+      }
+    }
+    previousHeadingIndex = currentHeadingIndex;
+
+    if (sectionText(content, heading).length < 20) {
       if (level === 'required') {
         fail(`${entry.path}의 ${heading} 본문이 20자보다 짧습니다.`);
       } else {
