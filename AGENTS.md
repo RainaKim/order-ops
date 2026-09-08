@@ -10,6 +10,17 @@
 - `README.md`와 `src/server.ts`를 확인한 뒤, 요청과 연결된 기능 모듈·`src/store.ts`·관련 테스트를 따라 현재 동작과 검증 범위를 확인한다.
 - 관련 자료와 현재 동작을 확인한 뒤, 코드 수정 전에 변경 범위·검증·미결정 사항을 담은 계획을 작성한다.
 
+### Policy Routing
+
+| 변경 유형 | 편집 전에 읽을 정책 |
+| --- | --- |
+| 주문 상태의 의미·전환, 취소·환불 상태 변경 | `docs/order-policy.md` |
+| 결제 성공·실패 판정, 결제 응답·이력·재시도 | `docs/payment-policy.md`; 주문 상태도 바뀌면 `docs/order-policy.md`도 함께 읽음 |
+| 재고 검사·차감·복원·부족 차단 | `docs/inventory-policy.md`; 결제 흐름에서 발생하면 `docs/payment-policy.md`와 `docs/order-policy.md`도 함께 읽음 |
+| 관리자 주문 목록의 필드·표시 조건·노출 제외 정보 | `docs/order-policy.md`의 관리자 조회 기준; 결제 실패 정보의 생성·범위가 바뀌면 `docs/payment-policy.md`도 함께 읽음 |
+
+필요한 정책 문서나 적용 기준이 없거나, 관련 정책끼리 같은 사건에 다른 상태·결제 결과·재고 결과·관리자 표시를 요구하거나, 요청한 동작이 정책에서 보류되어 있으면 편집 전에 멈춘다. 누락·충돌·보류 지점과 필요한 결정을 밝히고 사람의 확인을 받은 뒤에만 편집한다.
+
 ## Commands
 
 - `npm run dev` — 개발 서버를 실행한다.
