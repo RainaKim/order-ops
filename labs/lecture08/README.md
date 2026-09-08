@@ -149,22 +149,15 @@ CLI에서 다른 heading과 front matter가 보존됐는지 diff를 확인합니
 
 마지막 단계에서만 나쁜 Issue를 template에 채웁니다. 입력·코드·정책으로 확인할 수 없는 값은 Codex가 자연스러운 문장으로 메우지 않고, 사람이 답할 질문이나 미정 상태로 남깁니다.
 
-#### 설계 질문
-
-- 각 문장은 입력 원문, 코드 사실, 정책 기준 중 어디에서 왔나요?
-- 아직 답이 없어 draft를 확정할 수 없는 질문은 무엇인가요?
-- Scope와 Out of Scope가 “재고 문제도 같이”라는 표현을 충분히 제한하나요?
-- Acceptance Criteria가 정책과 연결되면서도 구현 방법을 고정하지 않나요?
-
 #### 실행
 
-Codex에게 E1 진단, 완성된 template, 세 정책 문서와 현재 코드를 사용해 먼저 필드별 입력 근거표를 만들게 합니다. 사람이 누락 질문에 답하고 범위를 승인하기 전에는 draft 파일을 쓰지 않습니다.
+Codex에게 제공 입력, 완성된 template, 세 정책 문서, E1 진단 결과와 현재 코드 사실을 사용해 `notes/issue-draft-l08.md`를 바로 작성하게 합니다. 확인할 수 없는 값은 추측하지 않고 미정으로 표시합니다.
 
 ```text
-목표: 제공 입력을 template 구조의 실제 Issue draft로 변환한다.
-문맥: E1 진단, 완성된 template, 정책 문서와 현재 코드 사실을 사용한다.
-제약: 근거 없는 내용은 ______로 표시하고 정책·범위·완료 기준을 임의로 정하지 않는다.
-완료 조건: 아홉 필드가 채워지거나 미정으로 표시되고 각 내용의 근거를 추적할 수 있다.
+목표: bad-issue-sample.md를 아홉 필드 template에 맞춰 notes/issue-draft-l08.md 초안으로 변환한다.
+문맥: @labs/lecture08/inputs/bad-issue-sample.md, @.github/ISSUE_TEMPLATE/workflow-task.md, @docs/order-policy.md, @docs/payment-policy.md, @docs/inventory-policy.md, E1 진단 결과와 현재 코드 사실을 사용한다.
+제약: 확인된 현재 동작, 승인된 목표 정책과 아직 결정할 내용을 구분하고, 미결 사항은 미정으로 표시하며 앱 코드를 수정하지 않는다.
+완료 조건: 아홉 필드가 채워지거나 미정으로 표시되고, 승인된 범위의 각 결과가 독립적으로 판정 가능한 체크박스에 연결되며, 사람 결정 필요 항목과 참고 근거가 별도로 보인다.
 ```
 
 ##### 사람 확인 — Issue로 작업을 시작해도 되는가
@@ -172,10 +165,10 @@ Codex에게 E1 진단, 완성된 template, 세 정책 문서와 현재 코드를
 - Current Behavior와 Expected Behavior가 서로 다른 근거를 사용했는가?
 - Scope에 포함된 변화와 Out of Scope로 미룬 변화가 겹치지 않는가?
 - Human Decision Needed의 질문이 선택 결과를 미리 포함하지 않는가?
-- Acceptance Criteria가 세 개 이상이며 각각 독립적으로 판정 가능한가?
+- 승인된 범위의 각 결과가 독립적으로 판정 가능한 Acceptance Criteria에 연결되는가?
 - References가 관련 정책과 조사 근거를 연결하는가?
 
-승인 후 `notes/issue-draft-l08.md`를 작성하고 CLI에서 template의 아홉 필드와 대조합니다. `node labs/tools/check.mjs 08`과 문서 diff를 확인한 뒤 Lab 08 변경을 커밋합니다.
+CLI에서 `notes/issue-draft-l08.md`를 template의 아홉 필드와 대조합니다. `node labs/tools/check.mjs 08`과 문서 diff를 확인한 뒤 Lab 08 변경을 커밋합니다.
 
 ##### Browser에서 실제 표시 확인
 
@@ -184,7 +177,7 @@ Codex에게 E1 진단, 완성된 template, 세 정책 문서와 현재 코드를
 #### 검증
 
 - [ ] 실제 draft의 아홉 필드가 채워졌거나 미정으로 표시됩니다.
-- [ ] Acceptance Criteria가 세 개 이상이며 독립적으로 판정 가능합니다.
+- [ ] 승인된 범위의 각 결과가 독립적으로 판정 가능한 Acceptance Criteria에 연결됩니다.
 - [ ] 사람 결정과 References가 별도 필드에 있습니다.
 - [ ] `node labs/tools/check.mjs 08`이 통과했습니다.
 - [ ] Browser에서 template 이름·설명·본문을 확인했고 Issue는 제출하지 않았습니다.
