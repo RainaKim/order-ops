@@ -1,9 +1,18 @@
 {
   "lecture": "10",
   "required": [
-    { "path": "docs/prompts/test-generation.md" },
-    { "path": "docs/prompts/pr-description.md" },
-    { "path": "docs/prompts/self-review.md" }
+    {
+      "path": "docs/prompts/test-generation.md",
+      "fixedHeadings": ["## 입력", "## 금지", "## 출력", "## 검증"]
+    },
+    {
+      "path": "docs/prompts/pr-description.md",
+      "fixedHeadings": ["## 입력", "## 금지", "## 출력", "## 검증"]
+    },
+    {
+      "path": "docs/prompts/self-review.md",
+      "fixedHeadings": ["## 입력", "## 금지", "## 출력", "## 검증"]
+    }
   ],
   "optional": [],
   "runAppChecks": false
