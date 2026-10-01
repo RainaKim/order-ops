@@ -63,19 +63,21 @@ flowchart LR
 | 품절 주문 차단 | `409`, 미저장, 미차감 | 중복 테스트를 만들지 않음 |
 | 결제 실패 상태 | `402`, `payment_failed`, 주문·시도 보존, 재고 불변 | 결제 테스트 파일의 책임 분리와 관리자 표시 공백 확인 |
 | 관리자 조회 실패 사유 | 아직 저장·응답할 필드가 없음 | 정책 기준 테스트로 미구현을 드러냄 |
+| 관리자 목록 기본 검사 | `Array.isArray`만 확인 | 변경 전 나쁜 통과로 기록하고 E3에서 관리자 테스트로 이동·교체 |
 
-추가로 `creates an order`와 `gets an order`는 상태 코드만 확인하므로 응답 값·저장 상태·재고 불변을 묻는 좋은 통과 후보입니다. 위험도가 높다는 이유만으로 이미 깊게 검증된 케이스를 다시 쓰지 않습니다.
+`lists admin orders`의 기존 assertion은 E4 비교표에 쓸 변경 전 증거로 원문을 기록합니다. 최종 suite에 약한 테스트를 남기거나 두 파일에 중복하지 않습니다. 추가로 `creates an order`와 `gets an order`는 상태 코드만 확인하므로 응답 값·저장 상태·재고 불변을 묻는 좋은 통과 후보입니다. 위험도가 높다는 이유만으로 이미 깊게 검증된 케이스를 다시 쓰지 않습니다.
 
 #### 실행
 
 ```text
-@tests/orders.test.ts와 @docs/order-policy.md @docs/payment-policy.md @docs/inventory-policy.md를 대조해 notes/assertion-review-l14.md 초안을 작성해줘. 품절 주문 차단, 결제 실패 상태, 관리자 조회 실패 사유마다 이미 검증되는 값과 비어 있는 값을 구분하고, creates an order·gets an order의 얕은 assertion도 표시해라. 위험, 관찰할 값, 예상 결과와 수정할 테스트 파일을 표로 남기되 아직 테스트나 src는 수정하지 마라.
+@tests/orders.test.ts와 @docs/order-policy.md @docs/payment-policy.md @docs/inventory-policy.md를 대조해 notes/assertion-review-l14.md 초안을 작성해줘. 품절 주문 차단, 결제 실패 상태, 관리자 조회 실패 사유마다 이미 검증되는 값과 비어 있는 값을 구분하고, creates an order·gets an order의 얕은 assertion도 표시해라. lists admin orders의 기존 Array.isArray assertion은 변경 전 나쁜 통과의 원문으로 기록하고 E3에서 admin.test.ts로 이동·교체할 대상으로 표시해라. 위험, 관찰할 값, 예상 결과와 수정할 테스트 파일을 표로 남기되 아직 테스트나 src는 수정하지 마라.
 ```
 
 #### 검증
 
 - [ ] 지정된 세 후보가 기존 검증·남은 공백으로 구분됐는가?
 - [ ] Lab 12의 깊은 assertion을 다시 작성할 대상으로 잡지 않았는가?
+- [ ] `lists admin orders`의 약한 assertion과 E3의 이동 대상이 기록됐는가?
 - [ ] 각 공백에 정책 위험과 관찰할 구체 값이 있는가?
 - [ ] 테스트와 `src/`가 아직 수정되지 않았는가?
 
@@ -125,18 +127,19 @@ flowchart LR
 | 관리자 상태 표시 실패 | 정책은 저장 상태 `payment_failed`를 요구하지만 구현은 실패 시도로 `결제실패`를 파생 | 원문 기록 후 `it.fails()` |
 | 관리자 실패 사유 실패 | 정책상 추가 저장·제공이 필요하지만 `PaymentAttempt`에 필드가 없음 | 미구현 기록 후 `it.fails()` |
 
-처음에는 일반 `it()`으로 실행해 실제 실패 원문을 `notes/assertion-review-l14.md`에 그대로 남깁니다. 그 뒤에만 `it.fails()`로 표시하고, 주석에는 실패 이유와 Lab 15 인계 대상을 적습니다. 실패를 지우거나 assertion을 현재 구현에 맞게 완화하지 않습니다.
+E1에서 기록한 `lists admin orders`는 `orders.test.ts`에서 제거하고 관리자 setup과 함께 `admin.test.ts`로 옮겨 정책 값을 묻는 테스트로 교체합니다. 약한 assertion을 복사해 중복하거나 최종 suite에 남기지 않습니다. 처음에는 일반 `it()`으로 실행해 실제 실패 원문을 `notes/assertion-review-l14.md`에 그대로 남깁니다. 그 뒤에만 `it.fails()`로 표시하고, 주석에는 실패 이유와 Lab 15 인계 대상을 적습니다. 실패를 지우거나 assertion을 현재 구현에 맞게 완화하지 않습니다.
 
 #### 실행
 
 ```text
-@notes/assertion-review-l14.md와 @docs/order-policy.md를 기준으로 tests/admin.test.ts를 만들어줘. 관리자 목록이 저장 상태가 payment_failed일 때만 그 상태를 표시하고 정책이 요구하는 결제 실패 사유를 제공하는지 값으로 검증해라. 먼저 일반 it 테스트로 실행해 각 실패의 명령·종료 코드·첫 관련 에러 원문·파일 위치를 assertion review에 그대로 기록한 뒤, 각 테스트를 it.fails로 바꾸고 실패 이유와 Lab 15 인계 대상을 주석으로 남겨라. 실패를 완화하거나 src를 수정하지 마라.
+@notes/assertion-review-l14.md와 @docs/order-policy.md를 기준으로 orders.test.ts의 lists admin orders를 tests/admin.test.ts로 옮기고 기존 Array.isArray assertion을 제거해 정책 값을 묻는 테스트로 교체해줘. 관리자 목록이 저장 상태가 payment_failed일 때만 그 상태를 표시하고 정책이 요구하는 결제 실패 사유를 제공하는지 값으로 검증해라. 먼저 일반 it 테스트로 실행해 각 실패의 명령·종료 코드·첫 관련 에러 원문·파일 위치를 assertion review에 그대로 기록한 뒤, 각 테스트를 it.fails로 바꾸고 실패 이유와 Lab 15 인계 대상을 주석으로 남겨라. 약한 테스트를 중복하거나 실패를 완화하거나 src를 수정하지 마라.
 ```
 
 #### 검증
 
 - [ ] 관리자 상태 assertion이 한글 파생 문자열이 아니라 정책의 저장 상태를 기대하는가?
 - [ ] 실패 사유 assertion이 미구현 필드를 실제로 묻는가?
+- [ ] 기존 관리자 테스트가 `admin.test.ts`로 이동·교체되고 `orders.test.ts`에 중복되지 않았는가?
 - [ ] `it()`의 최초 실패 원문을 보존한 뒤 `it.fails()`로 전환했는가?
 - [ ] 각 `it.fails()`에 사유와 인계 대상이 있고 `src/`는 그대로인가?
 
@@ -155,17 +158,18 @@ flowchart LR
 | 좋은 통과 | 정책이 요구하는 상태·응답·저장·재고 값을 직접 비교 | 현재 구현과 정책이 일치 |
 | 좋은 실패 | 정책 값을 직접 비교해 불일치 또는 미구현을 드러냄 | 수정·인계할 근거 발견 |
 
-비교표는 최소 세 행으로 세 분류를 모두 포함합니다. `it.fails()`가 있는 전체 suite의 통과는 결함 해결이 아니라 예상된 실패가 계속 재현된다는 뜻이며, 해당 테스트가 실제로 통과하기 시작하면 suite가 실패해 표시 제거를 요구합니다.
+비교표는 최소 세 행으로 세 분류를 모두 포함합니다. 나쁜 통과는 E1에 보존한 기존 `Array.isArray` assertion을 변경 전 증거로 사용하며 최종 테스트에 남길 필요는 없습니다. `it.fails()`가 있는 전체 suite의 통과는 결함 해결이 아니라 예상된 실패가 계속 재현된다는 뜻이며, 해당 테스트가 실제로 통과하기 시작하면 suite가 실패해 표시 제거를 요구합니다.
 
 #### 실행
 
 ```text
-@notes/assertion-review-l14.md를 완성해 나쁜 통과, 좋은 통과, 좋은 실패를 최소 한 행씩 비교해줘. 각 행에 질문한 값, 정책 근거, 실제 결과와 다음 조치를 적고 npm test, npm run lint, npm run typecheck를 실행해 실제 결과를 기록해라. tests 변경과 assertion review만 커밋하고 src·정책·AGENTS.md는 수정하거나 커밋하지 마라.
+@notes/assertion-review-l14.md를 완성해 E1에 기록한 lists admin orders의 기존 Array.isArray assertion을 나쁜 통과로, 값 중심으로 강화해 통과한 assertion을 좋은 통과로, 관리자 정책 불일치·미구현을 찾은 assertion을 좋은 실패로 최소 한 행씩 비교해줘. 각 행에 질문한 값, 정책 근거, 실제 결과와 다음 조치를 적고 npm test, npm run lint, npm run typecheck를 실행해 실제 결과를 기록해라. tests 변경과 assertion review만 커밋하고 src·정책·AGENTS.md는 수정하거나 커밋하지 마라.
 ```
 
 #### 검증
 
 - [ ] 비교표가 최소 세 행이며 세 분류를 모두 포함하는가?
+- [ ] 나쁜 통과가 최종 suite에 남은 약한 테스트가 아니라 E1의 변경 전 기록을 근거로 하는가?
 - [ ] 실패한 테스트를 삭제·완화하지 않고 `it.fails()`로 인계했는가?
 - [ ] 전체 test·lint·typecheck의 실제 결과와 미실행 항목이 구분됐는가?
 - [ ] 커밋에 assertion review와 `tests/`만 있고 `src/` 순변경은 없는가?
