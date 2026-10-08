@@ -132,7 +132,18 @@ E2와 E3는 성공·실패로 나뉘는 것이 아니라 **정책 질문에 대�
 #### 실행
 
 ```text
-@notes/assertion-review-l14.md와 현재 @tests/orders.test.ts를 사용해 tests/payments.test.ts를 만들고 기존 결제 경로 검증을 약화 없이 옮기거나 필요한 최소 구조로 분리해줘. orders.test.ts의 creates an order와 gets an order는 응답 값·저장 상태·재고 값까지 직접 비교하도록 강화해라. Lab 12가 이미 검증한 케이스를 중복 작성하거나 src를 수정하지 말고 관련 테스트를 실행해 결과를 assertion review에 기록해라.
+E1에서 만든 @notes/assertion-review-l14.md와 현재 @tests/orders.test.ts,
+@docs/order-policy.md @docs/payment-policy.md @docs/inventory-policy.md를 사용해
+테스트를 보강해줘.
+
+E1에서 검증이 비어 있다고 확인한 항목 중
+정책이 확정됐고 현재 구현과 일치하는 항목만 골라라.
+각 테스트는 응답·저장 상태·재고처럼 실제 결과 값을 확인하게 하고,
+기존 검증을 약화하거나 같은 케이스를 중복하지 마라.
+
+서로 다른 기능의 테스트가 섞여 있다면 필요한 최소 범위로 파일을 나누고,
+실행 결과와 아직 남은 공백을 assertion review에 기록해라.
+src는 수정하지 마라.
 ```
 
 #### 검증
