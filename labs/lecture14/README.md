@@ -48,7 +48,7 @@ git diff --stat -- src tests
 | --- | --- | --- | --- |
 | E1 | 검증 공백 선택 | 기존 깊은 검증과 얕은 검증을 분류 | `notes/assertion-review-l14.md` 초안 |
 | E2 | 좋은 통과 | 필요에 따라 테스트 책임을 나누고 얕은 assertion의 값을 검증 | 보강된 테스트와 실행 기록 |
-| E3 | 좋은 실패 | 관리자 정책 불일치와 미구현 필드를 원문으로 기록 | `tests/admin.test.ts`, `it.fails()` |
+| E3 | 좋은 실패 | 관리자 정책 불일치와 미구현 필드를 원문으로 기록 | 관리자 조회 테스트와 `it.fails()` |
 | E4 | 비교와 인계 | 세 결과를 비교하고 전체 검증·커밋 | 완성된 assertion review |
 
 ```mermaid
@@ -175,7 +175,7 @@ src는 수정하지 마라.
 | `it.fails()` | 지금 실패해야 하며 통과하면 경고해야 함 | 확인된 불일치·미구현 인계 |
 | `it.skip()`·`it.todo()` | 실행하거나 판정하지 않음 | 실패 증거가 사라지므로 사용하지 않음 |
 
-E1 조사 결과에서 고른 관리자 경로의 약한 테스트는 기존 파일에서 제거하고 관리자 setup과 함께 `admin.test.ts`로 옮겨 정책 값을 묻는 테스트로 교체합니다. 약한 assertion을 복사해 중복하거나 최종 suite에 남기지 않습니다. 처음에는 일반 `it()`으로 실행해 setup 오류가 아닌 목표 assertion에서 실패하는지 확인하고, 실제 실패 원문을 `notes/assertion-review-l14.md`에 그대로 남깁니다. 그 뒤에만 `it.fails()`로 표시하고, 주석에는 실패 이유와 Lab 15 인계 대상을 적습니다. `it.fails()`는 실패 원인까지 고정하지 않으므로 최초 원문과 정책 근거를 함께 보존합니다. 실패를 지우거나 assertion을 현재 구현에 맞게 완화하지 않습니다.
+E1 조사 결과에서 고른 관리자 경로의 약한 테스트는 정책 값을 묻는 테스트로 교체합니다. 필요하다면 관리자 조회 책임에 맞게 테스트 파일을 최소 범위로 나누되, 약한 assertion을 복사해 중복하거나 최종 suite에 남기지 않습니다. 처음에는 일반 `it()`으로 실행해 setup 오류가 아닌 목표 assertion에서 실패하는지 확인하고, 실제 실패 원문을 `notes/assertion-review-l14.md`에 그대로 남깁니다. 그 뒤에만 `it.fails()`로 표시하고, 주석에는 실패 이유와 Lab 15 인계 대상을 적습니다. `it.fails()`는 실패 원인까지 고정하지 않으므로 최초 원문과 정책 근거를 함께 보존합니다. 실패를 지우거나 assertion을 현재 구현에 맞게 완화하지 않습니다.
 
 ```mermaid
 flowchart LR
@@ -188,14 +188,27 @@ flowchart LR
 #### 실행
 
 ```text
-@notes/assertion-review-l14.md와 @docs/order-policy.md를 기준으로 orders.test.ts의 lists admin orders를 tests/admin.test.ts로 옮기고 기존 Array.isArray assertion을 제거해 정책 값을 묻는 테스트로 교체해줘. 관리자 목록이 저장 상태가 payment_failed일 때만 그 상태를 표시하고 정책이 요구하는 결제 실패 사유를 제공하는지 값으로 검증해라. 먼저 일반 it 테스트로 실행해 각 실패의 명령·종료 코드·첫 관련 에러 원문·파일 위치를 assertion review에 그대로 기록한 뒤, 각 테스트를 it.fails로 바꾸고 실패 이유와 Lab 15 인계 대상을 주석으로 남겨라. 약한 테스트를 중복하거나 실패를 완화하거나 src를 수정하지 마라.
+E1에서 만든 @notes/assertion-review-l14.md와 @docs/order-policy.md,
+현재 @tests/orders.test.ts를 사용해 관리자 조회 테스트를 보강해줘.
+
+E1에서 확인한 관리자 조회 공백 중
+정책과 구현이 다르거나 아직 구현되지 않은 항목을 테스트로 확인해라.
+원문으로 기록한 약한 assertion은 정책 값을 묻는 테스트로 교체하고,
+같은 약한 검증을 중복해서 남기지 마라.
+
+각 후보는 먼저 일반 it으로 실행해 실제 실패를 확인하고,
+명령·종료 코드·첫 관련 오류 원문·파일 위치를 assertion review에 기록해라.
+정책 불일치나 미구현으로 확인된 테스트만 it.fails로 바꾸고,
+주석에 실패 이유와 Lab 15 인계 대상을 남겨라.
+
+실패를 현재 구현에 맞게 완화하거나 src를 수정하지 마라.
 ```
 
 #### 검증
 
 - [ ] 관리자 상태 assertion이 한글 파생 문자열이 아니라 정책의 저장 상태를 기대하는가?
 - [ ] 실패 사유 assertion이 미구현 필드를 실제로 묻는가?
-- [ ] 기존 관리자 테스트가 `admin.test.ts`로 이동·교체되고 `orders.test.ts`에 중복되지 않았는가?
+- [ ] E1에서 고른 약한 관리자 assertion이 정책 값을 묻는 테스트로 교체되고 중복되지 않았는가?
 - [ ] `it()`의 최초 실패 원문을 보존한 뒤 `it.fails()`로 전환했는가?
 - [ ] 각 `it.fails()`에 사유와 인계 대상이 있고 `src/`는 그대로인가?
 
