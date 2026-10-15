@@ -5,6 +5,10 @@
     { "path": ".github/pull_request_template.md", "fixedHeadings": ["## Summary", "## Changed Files", "## Verification", "## Risk", "## Rollback Note", "## Reviewer Notes"] },
     { "path": "notes/pr-draft-l16.md", "fixedHeadings": ["## Summary", "## Changed Files", "## Verification", "## Risk", "## Rollback Note", "## Reviewer Notes", "## Review-ready 판정"] }
   ],
-  "optional": [],
+  "optional": [
+    {
+      "path": "notes/preflight-run-l16.md"
+    }
+  ],
   "runAppChecks": true
 }

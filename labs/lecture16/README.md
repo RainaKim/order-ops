@@ -1,110 +1,237 @@
-# Lab 16 — P3 구현과 검증 루프 제작
+# Lab 16 — 변경을 PR 후보로 정리하기
+
+이 랩에서는 Chapter 3에서 만든 변경을 실제 GitHub Pull Request로 열지 않고, 사람이 검토할 수 있는 **PR 후보**로 정리합니다. 코드를 더 고치는 시간이 아니라, 무엇이 바뀌었고 어떤 근거와 검증이 있으며 아직 무엇을 사람이 판단해야 하는지를 한 묶음의 증거로 만드는 시간입니다.
 
 ## 0. 이 랩이 끝나면
 
-- Lab 12~15 변경을 하나의 리뷰 가능한 PR 후보로 묶습니다.
-- 일곱 항목의 `docs/checklists/pr-preflight.md`를 만들고 실행합니다.
-- `.github/pull_request_template.md`, `notes/pr-draft-l16.md`를 완성합니다.
-- 예상 소요 시간은 55분입니다.
+- 변경 범위와 근거를 정책·계획·코드·테스트·검증 기록으로 분류할 수 있습니다.
+- 재사용 가능한 PR preflight checklist와 이번 실행의 결과 기록을 분리합니다.
+- PR template과 이번 변경의 PR 초안을 분리해 작성합니다.
+- 모든 검증 통과와 사람의 review-ready 판단을 구별하고, 조건부 준비 상태도 명확히 남깁니다.
+
+Lab 15까지는 구현과 실패 처리를 다뤘습니다. Lab 16에서는 `src/`, `tests/`, `package.json`을 바꾸지 않습니다. 대신 이미 있는 변경을 검토 가능한 PR 후보로 만들고, 다음 Lab의 리뷰어가 어디서부터 읽어야 하는지 남깁니다.
 
 ## 1. 시작 전 상태 확인
 
-- Lab 15 코드와 테스트가 모두 커밋돼 있어야 합니다.
-- 작업 트리는 깨끗하고 test, lint, typecheck가 통과해야 합니다.
-- 이 lab에서는 앱 코드를 추가로 수정하지 않습니다.
+이 랩은 Lab 15 종료 상태에서 시작합니다. 시작하기 전에 아래 사실을 확인합니다.
+
+- Lab 15의 코드·테스트·`docs/retry-stop-matrix.md`(특히 `## 변경 전 확인`)가 커밋되어 있고 작업 트리가 깨끗합니다.
+- `npm test`, `npm run lint`, `npm run typecheck`의 최근 결과가 성공입니다.
+- Lab 14의 `it.fails()` 테스트는 정책과 현재 구현의 불일치를 알리는 기대 실패로 남아 있으며, suite에서는 기대한 결과로 처리됩니다. 이 랩에서 고치거나 제거하지 않습니다.
+- Lab 13의 통제된 fault injection용 override와 임시 패치는 남아 있지 않습니다.
+- `docs/prompts/pr-description.md`, `docs/prompts/self-review.md`, `notes/session-handoff.md`가 있고 `.github/pull_request_template.md`는 아직 없습니다.
+
+시작 상태가 다르면 이전 Lab을 되감거나 이 랩에서 즉석 수정하지 않습니다. 차이를 기록하고, 어떤 상태를 PR 후보로 삼을지 사람에게 먼저 확인합니다.
 
 ## 2. 실습 목표와 산출물
 
-| 단계 | 핵심 작업 | 결과 |
+| 실습 | 핵심 작업 | 산출물 |
 | --- | --- | --- |
-| E1 | 구현·테스트·문서 변경을 하나의 PR 후보 범위로 묶습니다. | 계획 대비 변경 파일 목록 |
-| E2 | 리뷰 요청 전에 통과할 preflight를 작성하고 실행합니다. | `docs/checklists/pr-preflight.md` |
-| E3 | 재사용 가능한 PR template과 현재 작업의 draft를 만듭니다. | `.github/pull_request_template.md`, `notes/pr-draft-l16.md` |
-| E4 | 검증 근거를 기준으로 review-ready 여부를 판정합니다. | 완성된 PR draft와 완료 커밋 |
+| E1 | 변경의 근거와 범위를 분류합니다. | 범위 대조 보고 |
+| E2 | 재사용 checklist와 이번 실행 기록을 분리합니다. | `docs/checklists/pr-preflight.md`, `notes/preflight-run-l16.md` |
+| E3 | PR 양식과 이번 변경의 설명 초안을 구분합니다. | `.github/pull_request_template.md`, `notes/pr-draft-l16.md` |
+| E4 | 사람이 검토할 순서와 남은 판단을 정리합니다. | `notes/pr-draft-l16.md`의 `## Review-ready 판정` |
+
+```mermaid
+flowchart LR
+  A[E1 범위와 근거 대조] --> B{범위 밖 변경인가?}
+  B -- 예 --> X[기록하고 중단]
+  B -- 아니오 --> C[E2 preflight 실행]
+  C --> D{실패·보류가 있는가?}
+  D -- 예 --> Y[결과 기록 후 중단]
+  D -- 아니오 --> E[E3 PR template과 draft]
+  E --> F[E4 review-ready 판정]
+  F --> G{사람이 검토 준비를 인정하는가?}
+  G -- ready 또는 conditional --> H[문서·기록만 커밋]
+  G -- not ready --> Z[남은 판단을 기록하고 중단]
+```
+
+`ready`는 검토에 필요한 증거와 판단이 모두 갖춰진 상태이고, `conditional ready`는 검증은 갖췄지만 리뷰어가 알아야 할 기대 실패나 사람 결정이 남은 상태입니다. 검증 명령이 통과했다는 사실만으로 자동으로 ready가 되지는 않습니다.
 
 ## 3. 실습
 
-### E1. PR 후보 범위 묶기
+### E1. PR 범위와 근거 대조
 
 #### 설계 질문
 
-- Lab 12~15 변경 중 하나의 목적과 연결되지 않는 파일은 무엇인가요?
-- 리뷰어가 정책에서 코드와 테스트까지 어떤 순서로 읽어야 하나요?
+리뷰어가 이 변경이 왜 필요한지, 무엇을 근거로 어디까지 바뀌었는지를 짧은 읽기 순서로 따라갈 수 있는가를 묻습니다. 파일이 바뀌었다는 사실만으로는 충분하지 않습니다. 정책의 판단, 승인된 계획, 실제 코드, 테스트 증거와 실행 기록은 각각 다른 역할을 합니다.
+
+#### 판단 기준
+
+| 분류 | 확인할 역할 | 대표 근거 | 리뷰어가 확인할 질문 |
+| --- | --- | --- | --- |
+| 정책 | 업무상 허용·금지와 상태 의미의 정본 | 주문·결제·재고 정책 | 이 변경이 정책과 맞는가? |
+| 계획 | 이번 변경에 승인된 목표와 범위 | `notes/plans/` | 이 파일과 변경 책임이 승인됐는가? |
+| 코드 | 실제 동작 | `src/` diff | 구현이 계획한 흐름을 수행하는가? |
+| 테스트 | 관찰 가능한 계약의 증거 | `tests/` | 상태·응답·저장 결과를 직접 묻는가? |
+| 검증 기록 | 실행 결과와 발견 사항 | `notes/diff-review-l12.md`, `notes/error-log-l13.md`, `notes/assertion-review-l14.md`, `docs/retry-stop-matrix.md` | 무엇을 실제로 확인했고 무엇이 남았는가? |
+
+`docs/retry-stop-matrix.md`는 실패 처리의 보조 참조입니다. 상태 전환이나 외부 계약의 정본을 새로 만들지 않으며, 정책 판단은 관련 정책 문서로 돌아가 확인합니다. 위 다섯 분류에 넣을 수 없는 변경은 범위 밖 후보로 따로 표시합니다.
+
+기준선은 `notes/session-handoff.md`에 기록된 Lab 12 시작 HEAD입니다. `git log`로 그 기준선이 현재 변경 이력과 이어지는지만 확인하며, 더 최근의 편리한 커밋을 임의 기준선으로 고르지 않습니다.
+
+리뷰어의 기본 읽기 순서는 정책 → 승인 계획 → 코드 diff → 테스트 → 검증 기록입니다. 이 순서를 따르면 구현 설명이 정책 근거를 대신하는 일을 막을 수 있습니다.
 
 #### 실행
 
-`git log --oneline`에서 Lab 12 시작 직전 커밋을 찾고, 그 커밋부터 현재까지의 diff를 확인합니다. 변경 파일을 정책, plan, 코드, 테스트, 검증 기록으로 분류하며 새 코드는 작성하지 않습니다.
+```text
+notes/session-handoff.md에 기록된 Lab 12 시작 HEAD를 기준선으로 삼아 현재 변경을 PR 후보로 검토할 수 있도록 근거와 범위를 읽기 전용으로 대조해줘.
+정책, 승인 계획, 코드, 테스트, 검증 기록 중 정확히 하나로 각 변경 파일을 분류하고, 어느 분류에도 맞지 않는 파일은 범위 밖 후보로 따로 표시해라.
+각 행에 변경 목적, 근거, 리뷰어가 다음에 읽을 자료를 적고, 이 단계에서는 파일을 수정하거나 검증을 실행하지 마라.
+```
 
 #### 검증
 
-- [ ] 변경 파일이 다섯 범주 중 하나에 배치됐습니다.
-- [ ] 범위 밖 파일이 별도로 표시됐습니다.
-- [ ] `src/`와 `tests/`의 새 변경이 없습니다.
+- [ ] 각 변경 파일이 정책·계획·코드·테스트·검증 기록 중 하나로만 분류됐는가?
+- [ ] 정책 판단과 retry/stop 보조 참조의 역할이 섞이지 않았는가?
+- [ ] 범위 밖 후보는 정상 변경처럼 포함하지 않고 별도로 표시했는가?
+- [ ] 리뷰어가 정책부터 검증 기록까지 따라갈 읽기 순서를 확인할 수 있는가?
 
-### E2. PR preflight 작성하고 실행하기
+### E2. PR preflight를 실행 가능한 증거로 만들기
 
 #### 설계 질문
 
-- 리뷰 요청 전에 자동으로 확인할 것과 사람이 볼 것은 무엇인가요?
-- 실패 결과를 숨기지 않고 중단하게 할 항목은 무엇인가요?
+PR preflight는 "테스트가 통과했는가"만 확인하는 단계가 아닙니다. 범위가 승인된 계획과 맞는지, 정책 보류를 통과로 위장하지 않았는지, 실패 처리가 숨겨지지 않았는지 함께 점검합니다.
+
+재사용 checklist에는 **방법**만 남기고, 이번 실행의 결과는 `notes/`에 남깁니다. 그래야 다음 PR도 같은 checklist를 쓰되 과거 실행 결과를 사실처럼 재사용하지 않습니다.
+
+#### 판단 기준
+
+| 항목 | 방법 또는 관찰 대상 | 판단 주체 | 실패·보류 시 행동 |
+| --- | --- | --- | --- |
+| Scope | E1 범위와 실제 diff를 대조합니다. | 사람 | 계획 밖 변경을 기록하고 중단합니다. |
+| Policy | 정책과 AGENTS의 policy routing을 대조합니다. | 사람 | 충돌·보류를 통과로 표시하지 않습니다. |
+| Tests | `npm test`와 테스트 계약을 확인합니다. | 자동 + 사람 | 실패와 `it.fails`를 구분해 남기고 중단합니다. |
+| Lint | `npm run lint`를 실행합니다. | 자동 | 실패 원문을 기록하고 중단합니다. |
+| Typecheck | `npm run typecheck`를 실행합니다. | 자동 | 실패 원문을 기록하고 중단합니다. |
+| Diff | 기준선과 E1 범위를 다시 대조합니다. | 사람 | 범위 확대를 기록하고 중단합니다. |
+| Failure handling | `docs/retry-stop-matrix.md`의 `## 변경 전 확인`을 대조합니다. | 사람 | 숨겨진 실패·미결 판단을 보류로 남깁니다. |
+
+`it.fails()`는 일반 통과가 아닙니다. 정책과 현재 구현의 불일치를 계속 감시하는 기대 실패이며, PR의 남은 위험으로 기록합니다.
+
+#### 수행 순서
+
+1. 재사용 가능한 checklist를 작성합니다.
+2. checklist의 명령과 관찰을 현재 PR 후보에 적용합니다.
+3. 실행 결과만 별도 기록에 남깁니다.
+4. 실패·미실행·정책 보류가 있으면 다음 실습으로 넘어가지 않고 이유를 기록합니다.
 
 #### 실행
 
-`docs/checklists/pr-preflight.md`에 scope, policy, tests, lint, typecheck, diff, failure handling의 일곱 항목을 작성하고 실제로 실행합니다.
+```text
+E1의 범위 대조를 바탕으로 docs/checklists/pr-preflight.md에 Scope, Policy, Tests, Lint, Typecheck, Diff, Failure handling 일곱 항목의 재사용 checklist를 작성해줘.
+각 항목에는 방법 또는 관찰 대상, 자동 또는 사람 판단, 실패·보류 시 행동을 적고 실행 결과는 넣지 마라.
+현재 PR 후보의 실행 결과는 notes/preflight-run-l16.md에 항목·명령 또는 관찰·결과·판정 표로만 기록하며, 실패·미실행·it.fails를 일반 통과로 쓰지 말고 앱 파일을 수정하지 않은 채 멈춰라.
+```
 
 #### 검증
 
-- [ ] 체크리스트가 일곱 항목입니다.
-- [ ] 각 항목에 실행 방법 또는 관찰 대상이 있습니다.
-- [ ] 실패한 항목은 통과로 표시되지 않았습니다.
+- [ ] checklist에 Scope, Policy, Tests, Lint, Typecheck, Diff, Failure handling이 각각 한 번씩 있는가?
+- [ ] checklist는 다음 작업에도 쓸 방법만 담고, 이번 실행 결과를 담지 않는가?
+- [ ] 실행 기록은 항목·명령 또는 관찰·결과·판정만 짧게 구분하는가?
+- [ ] `npm test`, `npm run lint`, `npm run typecheck` 결과와 미실행 이유가 사실대로 기록됐는가?
+- [ ] 기대 실패와 미결 정책을 일반 통과로 바꾸지 않았는가?
 
-### E3. PR template과 draft 작성하기
+### E3. PR template과 변경 설명 초안 분리
 
 #### 설계 질문
 
-- 리뷰어가 작업 배경을 다시 탐색하지 않게 어떤 링크가 필요한가요?
-- 위험과 rollback을 어느 수준까지 적어야 하나요?
+PR template은 앞으로 모든 PR이 채울 빈 양식이고, PR draft는 이번 변경의 근거를 채운 기록입니다. 두 문서를 한 파일에 섞으면 양식은 특정 작업에 종속되고, 초안은 재사용할 수 없는 문서가 됩니다.
+
+#### 판단 기준
+
+| 구분 | 남겨야 할 내용 | 남기면 안 되는 내용 |
+| --- | --- | --- |
+| PR template | 누구나 채울 수 있는 빈 heading과 안내 | 이번 주문·결제 변경의 답 |
+| PR draft | 이번 diff, 실행·미실행 검증, 확인된 위험 | 근거 없는 위험·rollback 약속 |
+| Verification | `notes/preflight-run-l16.md`를 가리키는 실행 증거 | 실행하지 않은 명령의 통과 주장 |
+| Risk / Rollback | `it.fails`, 정책 보류, diff·커밋 근거 | 추측한 위험 또는 확인하지 않은 복구 방법 |
+
+이번 draft는 Lab 8·12의 Issue와 계획, 주문·결제·재고 정책 문서를 참고 자료로 연결합니다. Risk에는 현재 근거에서 확인한 기대 실패, 정책 미결, 이번 범위에서 제공하지 않는 운영 정보, 사람 결정에 의존하는 계약을 각각 근거와 함께 남깁니다. 이 항목의 존재 여부와 구체 내용은 diff·정책·검증 기록을 대조해 확인합니다.
 
 #### 실행
 
-`.github/pull_request_template.md`에 Summary, Changed Files, Verification, Risk, Rollback Note, Reviewer Notes의 빈 구조를 만들고 현재 작업의 초안을 `notes/pr-draft-l16.md`에 작성합니다.
+```text
+docs/prompts/pr-description.md의 계약을 사용해 현재 PR 후보를 위한 빈 .github/pull_request_template.md와 이번 변경의 notes/pr-draft-l16.md를 작성해줘.
+template에는 Summary, Changed Files, Verification, Risk, Rollback Note, Reviewer Notes 여섯 H2만 두고, draft에는 같은 여섯 H2로 이번 diff와 정책·Issue·계획 근거를 작성해라.
+Verification은 notes/preflight-run-l16.md를 참조하고, 실제 근거에서 확인한 기대 실패·정책 미결·미제공 정보·사람 결정 의존 계약을 Risk에 구분해 적어라. 실행하지 않은 검증과 근거 없는 위험·rollback은 미확인으로 표시하고 앱 파일은 수정하지 마라.
+```
 
 #### 검증
 
-- [ ] template은 특정 작업 내용 없이 재사용 가능합니다.
-- [ ] draft는 issue, plan, 정책 문서를 참조합니다.
-- [ ] 실행한 검증과 실행하지 않은 검증이 구분됩니다.
+- [ ] template에는 여섯 빈 H2만 있고 특정 변경의 답이 없는가?
+- [ ] draft의 Verification이 실행·미실행 검증을 구분하고 preflight 실행 기록을 참조하는가?
+- [ ] Risk가 기대 실패·정책 보류·미구현·사람 승인 의존성을 근거와 함께 남기는가?
+- [ ] Rollback Note와 Reviewer Notes가 실제 diff·커밋 근거를 벗어나지 않는가?
+- [ ] Issue, 계획, 관련 정책 문서의 위치를 찾을 수 있는가?
 
-### E4. Review-ready 판정하기
+### E4. review-ready 판정과 인계
 
 #### 설계 질문
 
-- reviewer가 추가 탐색 없이 변경 이유를 추적할 수 있나요?
-- 아직 사람 결정이나 실패 검증이 남아 있나요?
+PR 후보는 검증 명령이 모두 통과했다고 자동으로 review-ready가 되지 않습니다. 사람이 더 정해야 하는 계약, 기대 실패, 미실행 검증이 남았다면 그 사실이 리뷰어의 첫 화면에 보여야 합니다.
+
+#### 판단 기준
+
+| 판정 | 의미 | 다음 행동 |
+| --- | --- | --- |
+| ready | 필요한 증거와 사람 판단이 모두 갖춰졌습니다. | 문서·기록만 커밋하고 리뷰를 요청합니다. |
+| conditional ready | 검토는 가능하지만 기대 실패·사람 판단·남은 위험이 있습니다. | 조건과 읽기 순서를 적고 사람에게 검토를 요청합니다. |
+| not ready | 범위·검증·정책 판단이 부족합니다. | 부족한 증거를 기록하고 구현 또는 PR 생성으로 넘어가지 않습니다. |
+
+리뷰어는 위험이 큰 순서로 결제·재고 상태 전환 → silent fallback 제거 → 테스트 → 정책 → 문서를 읽습니다. `it.fails()` 또는 사람 판단이 남아 있으면, 검증 명령이 성공했더라도 보통은 `conditional ready`입니다.
+
+#### 수행 순서
+
+1. `notes/pr-draft-l16.md`에 `## Review-ready 판정`을 추가합니다.
+2. preflight 실행 기록, 남은 blocker, 위험 순서, 사람이 정할 항목을 근거와 함께 연결합니다.
+3. 전체 검증을 다시 실행합니다.
+4. ready 또는 conditional ready이고 범위가 문서·기록·`.github`에만 한정될 때만 커밋합니다.
 
 #### 실행
 
-PR draft에 `## Review-ready 판정`을 추가하고 남은 차단 조건, 리뷰 순서, 사람 확인 지점을 기록한 뒤 커밋합니다.
+```text
+notes/pr-draft-l16.md에 ## Review-ready 판정을 추가해 현재 PR 후보를 ready, conditional ready, not ready 중 하나로 판정해줘.
+notes/preflight-run-l16.md의 증거, 남은 blocker, 결제·재고 상태 전환부터 문서까지의 리뷰 순서, 사람이 정할 항목과 rollback·reviewer notes의 diff 또는 커밋 근거를 구분해 적어라.
+전체 test·lint·typecheck 결과를 다시 확인하고, not ready이면 커밋하지 말며 다른 상태에서도 src, tests, package.json은 커밋에 포함하지 마라.
+```
 
 #### 검증
 
-- [ ] review-ready 여부가 근거와 함께 적혀 있습니다.
-- [ ] 남은 위험과 사람 확인이 숨겨지지 않았습니다.
-- [ ] 전체 검증 명령이 통과합니다.
-- [ ] 이 lab의 커밋에 앱 코드 변경이 없습니다.
+- [ ] `## Review-ready 판정`이 ready·conditional ready·not ready 중 하나를 근거와 함께 선택하는가?
+- [ ] preflight 실행 기록, 남은 blocker, 사람 결정 항목을 구분하는가?
+- [ ] rollback과 reviewer notes가 실제 diff 또는 커밋 증거에 연결되는가?
+- [ ] `it.fails()`와 정책 보류가 있으면 일반 ready로 과장하지 않았는가?
+- [ ] 커밋에는 `docs/`, `notes/`, `.github/`만 포함되고 앱·테스트·패키지 파일은 없는가?
 
 ## 4. Self-check
 
+아래 명령으로 Lab 산출물과 커밋 범위를 확인합니다.
+
 ```bash
 node labs/tools/check.mjs 16
+git show --stat --oneline HEAD
+git diff HEAD^ HEAD -- src tests package.json
 ```
+
+- [ ] 검사기가 PR checklist, PR template, PR draft의 필수 heading을 모두 확인하는가?
+- [ ] 마지막 커밋의 변경 파일이 문서·기록·`.github`에만 있는가?
+- [ ] 마지막 명령에서 앱 코드·테스트·패키지 변경이 보이지 않는가?
+- [ ] 실행한 검증과 실행하지 않은 검증을 PR draft에서 구분했는가?
 
 ## 5. 자주 하는 실수
 
-- preflight를 새 npm script로 미리 등록해 학습 지점을 없앱니다.
-- PR template과 현재 PR draft를 같은 파일로 만듭니다.
-- review-ready를 검증 근거 없이 선언합니다.
+- preflight checklist에 이번 실행 결과를 써서 다음 작업이 과거 결과를 사실처럼 재사용하게 만듭니다.
+- `it.fails()`를 suite 통과의 증거로만 보고, 남은 정책 불일치라는 위험을 PR에서 숨깁니다.
+- 정책 보류를 코드의 현재 동작으로 채우거나, AGENTS의 routing을 정책 정본처럼 사용합니다.
+- 실행하지 않은 test·lint·typecheck를 통과했다고 PR 설명에 적습니다.
+- template에 이번 변경의 파일·위험·rollback 답을 미리 채워 재사용성을 잃습니다.
+- `conditional ready`를 실패처럼 숨기거나, 반대로 검증 명령 통과만으로 `ready`라고 단정합니다.
+- rollback 방법을 실제 diff나 커밋을 보지 않고 추측해 적습니다.
+- 이 랩에서 편의를 위해 앱 코드나 테스트를 다시 고칩니다.
 
-## 6. 다음 lab으로 넘기는 것
+## 6. 다음 Lab으로 넘기는 것
 
-Lab 17에서는 같은 작업을 planner, implementer, reviewer 역할로 나눕니다.
+Lab 17의 리뷰어는 이 랩의 preflight checklist, 이번 실행 기록, PR draft, review-ready 판정을 입력으로 사용합니다. 리뷰어는 먼저 결제·재고 상태 전환과 실패 처리의 위험을 읽고, 그 다음 테스트·정책·문서 근거를 따라갑니다.
+
+이 랩의 목적은 PR을 자동으로 승인하는 것이 아닙니다. 사람이 무엇을 검토했고 무엇을 아직 결정해야 하는지 분명히 남겨, 다음 리뷰가 처음부터 저장소를 다시 탐색하지 않게 만드는 것입니다.
