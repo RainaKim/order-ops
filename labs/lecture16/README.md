@@ -139,18 +139,38 @@ PR preflight는 "테스트가 통과했는가"만 확인하는 단계가 아닙�
 
 #### 수행 순서
 
-1. 재사용 가능한 checklist를 작성합니다.
-2. checklist의 명령과 관찰을 현재 PR 후보에 적용합니다.
-3. 실행 결과만 별도 기록에 남깁니다.
-4. 실패·미실행·정책 보류가 있으면 다음 실습으로 넘어가지 않고 이유를 기록합니다.
+1. 재사용 가능한 checklist만 먼저 작성합니다.
+2. 사람이 checklist가 정책 답이나 이번 실행 결과를 포함하지 않는지 확인합니다.
+3. 승인한 checklist를 현재 PR 후보에 적용하고, 실행 결과만 별도 기록에 남깁니다.
+4. 사람이 실행 기록을 보고 E3로 진행할지 또는 중단할지 판단합니다.
 
-#### 실행
+#### 실행 1 — 재사용 checklist 만들기
 
 ```text
 E1의 범위 대조를 바탕으로 docs/checklists/pr-preflight.md에 Scope, Policy, Tests, Lint, Typecheck, Diff, Failure handling 일곱 항목의 재사용 checklist를 작성해줘.
 각 항목에는 방법 또는 관찰 대상, 자동 또는 사람 판단, 실패·보류 시 행동을 적고 실행 결과는 넣지 마라.
-현재 PR 후보의 실행 결과는 notes/preflight-run-l16.md에 항목·명령 또는 관찰·결과·판정 표로만 기록하며, 실패·미실행·it.fails를 일반 통과로 쓰지 말고 앱 파일을 수정하지 않은 채 멈춰라.
+명령을 실행하거나 notes/preflight-run-l16.md를 만들지 말고, 앱 파일도 수정하지 마라.
 ```
+
+#### 사람 확인 — checklist
+
+- [ ] 일곱 항목이 각각 한 번씩 있고, 각 항목에 방법·판단 주체·실패 시 행동이 있는가?
+- [ ] 정책 답이나 이번 PR 후보의 실행 결과가 checklist에 미리 채워져 있지 않은가?
+- [ ] 사람이 판단할 Scope·Policy·Diff·Failure handling을 자동 검사처럼 표현하지 않았는가?
+
+#### 실행 2 — preflight 적용과 기록
+
+```text
+승인한 docs/checklists/pr-preflight.md를 현재 PR 후보에 적용해줘.
+npm test, npm run lint, npm run typecheck와 checklist의 Scope·Policy·Diff·Failure handling 관찰을 수행하고, 실제로 확인한 사실만 notes/preflight-run-l16.md에 항목·명령 또는 관찰·결과·판정 표로 기록해라.
+실패·미실행·기대 실패·사람 판단이 필요한 항목은 일반 통과로 쓰지 말고 보류 또는 실패로 기록한 뒤, 앱 파일을 수정하지 않고 멈춰라.
+```
+
+#### 사람 확인 — preflight 결과
+
+- [ ] 실행·미실행·실패·기대 실패가 실제 결과에 맞게 구분됐는가?
+- [ ] Scope·Policy·Diff·Failure handling의 사람 판단을 Codex가 대신 확정하지 않았는가?
+- [ ] 실패·보류가 있으면 원인과 다음 판단을 기록하고 E3로 진행하지 않는가?
 
 #### 검증
 
@@ -216,7 +236,7 @@ PR 후보는 검증 명령이 모두 통과했다고 자동으로 review-ready�
 | conditional ready | 검토는 가능하지만 기대 실패·사람 판단·남은 위험이 있습니다. | 조건과 읽기 순서를 적고 사람에게 검토를 요청합니다. |
 | not ready | 범위·검증·정책 판단이 부족합니다. | 부족한 증거를 기록하고 구현 또는 PR 생성으로 넘어가지 않습니다. |
 
-리뷰어는 위험이 큰 순서로 결제·재고 상태 전환 → silent fallback 제거 → 테스트 → 정책 → 문서를 읽습니다. `it.fails()` 또는 사람 판단이 남아 있으면, 검증 명령이 성공했더라도 보통은 `conditional ready`입니다.
+리뷰어는 위험이 큰 순서로 결제·재고 상태 전환 → silent fallback 제거 → 테스트 → 정책 → 문서를 읽습니다. 기대 실패·사람 판단·미실행 검증은 준비 상태를 판단할 때 일반 통과와 분리해 대조합니다. 남은 조건이 현재 리뷰를 막는지 여부와 그 근거를 기록합니다.
 
 #### 수행 순서
 
