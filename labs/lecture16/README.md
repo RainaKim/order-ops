@@ -167,7 +167,9 @@ npm test, npm run lint, npm run typecheck와 checklist의 Scope·Policy·Diff·F
 
 - [ ] 실행·미실행·실패·기대 실패가 실제 결과에 맞게 구분됐는가?
 - [ ] Scope·Policy·Diff·Failure handling의 사람 판단을 Codex가 대신 확정하지 않았는가?
-- [ ] 실패·보류가 있으면 원인과 다음 판단을 기록하고 E3로 진행하지 않는가?
+- [ ] 새로 발견됐거나 이번 PR의 판단을 막는 실패·보류가 있으면 원인과 다음 판단을 기록하고 E3로 진행하지 않는가?
+
+기존 기록에 근거가 있고 이번 PR의 판단을 막지 않는 기대 실패·보류는 PR의 위험으로 남깁니다. 그 사실만으로 E3 진행을 막지는 않으며, E3에서 실행 기록과 함께 리뷰어에게 보이게 합니다.
 
 #### 검증
 
@@ -190,23 +192,23 @@ PR template은 앞으로 모든 PR이 채울 빈 양식이고, PR draft는 이�
 | PR template | 누구나 채울 수 있는 빈 heading과 안내 | 이번 주문·결제 변경의 답 |
 | PR draft | 이번 diff, 실행·미실행 검증, 확인된 위험 | 근거 없는 위험·rollback 약속 |
 | Verification | `notes/preflight-run-l16.md`를 가리키는 실행 증거 | 실행하지 않은 명령의 통과 주장 |
-| Risk / Rollback | `it.fails`, 정책 보류, diff·커밋 근거 | 추측한 위험 또는 확인하지 않은 복구 방법 |
+| Risk / Rollback | 근거로 확인한 위험·미결과 diff·커밋 근거 | 추측한 위험 또는 확인하지 않은 복구 방법 |
 
-이번 draft는 Lab 8·12의 Issue와 계획, 주문·결제·재고 정책 문서를 참고 자료로 연결합니다. Risk에는 현재 근거에서 확인한 기대 실패, 정책 미결, 이번 범위에서 제공하지 않는 운영 정보, 사람 결정에 의존하는 계약을 각각 근거와 함께 남깁니다. 이 항목의 존재 여부와 구체 내용은 diff·정책·검증 기록을 대조해 확인합니다.
+이번 draft는 Lab 8·12의 Issue와 계획, 주문·결제·재고 정책 문서를 참고 자료로 연결합니다. Risk와 Rollback Note에는 현재 diff·정책·검증 기록에서 확인한 사실을 각각 근거와 함께 남깁니다. 근거가 없거나 아직 확인하지 못한 내용은 `미확인`으로 표시합니다.
 
 #### 실행
 
 ```text
 docs/prompts/pr-description.md의 계약을 사용해 현재 PR 후보를 위한 빈 .github/pull_request_template.md와 이번 변경의 notes/pr-draft-l16.md를 작성해줘.
 template에는 Summary, Changed Files, Verification, Risk, Rollback Note, Reviewer Notes 여섯 H2만 두고, draft에는 같은 여섯 H2로 이번 diff와 정책·Issue·계획 근거를 작성해라.
-Verification은 notes/preflight-run-l16.md를 참조하고, 실제 근거에서 확인한 기대 실패·정책 미결·미제공 정보·사람 결정 의존 계약을 Risk에 구분해 적어라. 실행하지 않은 검증과 근거 없는 위험·rollback은 미확인으로 표시하고 앱 파일은 수정하지 마라.
+Verification은 notes/preflight-run-l16.md를 참조하고, 현재 diff·정책·실행 기록에서 확인한 위험과 미결을 Risk에 근거와 함께 적어라. 실행하지 않은 검증과 근거 없는 위험·rollback은 미확인으로 표시하고 앱 파일은 수정하지 마라.
 ```
 
 #### 검증
 
 - [ ] template에는 여섯 빈 H2만 있고 특정 변경의 답이 없는가?
 - [ ] draft의 Verification이 실행·미실행 검증을 구분하고 preflight 실행 기록을 참조하는가?
-- [ ] Risk가 기대 실패·정책 보류·미구현·사람 승인 의존성을 근거와 함께 남기는가?
+- [ ] Risk와 Rollback Note가 근거를 가리키며, 확인하지 못한 내용은 미확인으로 구분하는가?
 - [ ] Rollback Note와 Reviewer Notes가 실제 diff·커밋 근거를 벗어나지 않는가?
 - [ ] Issue, 계획, 관련 정책 문서의 위치를 찾을 수 있는가?
 
@@ -233,7 +235,7 @@ PR 후보는 검증 명령이 모두 통과했다고 자동으로 review-ready�
 | conditional ready | 검토는 가능하지만 기대 실패·사람 판단·남은 위험이 있습니다. | 조건과 읽기 순서를 적고 사람에게 검토를 요청합니다. |
 | not ready | 범위·검증·정책 판단이 부족합니다. | 부족한 증거를 기록하고 구현 또는 PR 생성으로 넘어가지 않습니다. |
 
-리뷰어는 위험이 큰 순서로 결제·재고 상태 전환 → silent fallback 제거 → 테스트 → 정책 → 문서를 읽습니다. 기대 실패·사람 판단·미실행 검증은 준비 상태를 판단할 때 일반 통과와 분리해 대조합니다. 남은 조건이 현재 리뷰를 막는지 여부와 그 근거를 기록합니다.
+리뷰어의 읽기 순서는 E3의 위험과 E2의 preflight 기록을 근거로 정합니다. 기대 실패·사람 판단·미실행 검증은 준비 상태를 판단할 때 일반 통과와 분리해 대조합니다. 남은 조건이 현재 리뷰를 막는지 여부와 그 근거를 기록합니다.
 
 #### 수행 순서
 
@@ -246,7 +248,7 @@ PR 후보는 검증 명령이 모두 통과했다고 자동으로 review-ready�
 
 ```text
 notes/pr-draft-l16.md에 ## Review-ready 판정을 추가해 현재 PR 후보를 ready, conditional ready, not ready 중 하나로 판정해줘.
-notes/preflight-run-l16.md의 증거, 남은 blocker, 결제·재고 상태 전환부터 문서까지의 리뷰 순서, 사람이 정할 항목과 rollback·reviewer notes의 diff 또는 커밋 근거를 구분해 적어라.
+notes/preflight-run-l16.md의 증거, 남은 blocker, 위험을 근거로 정한 리뷰 순서, 사람이 정할 항목과 rollback·reviewer notes의 diff 또는 커밋 근거를 구분해 적어라.
 전체 test·lint·typecheck 결과를 다시 확인하고, not ready이면 커밋하지 말며 다른 상태에서도 src, tests, package.json은 커밋에 포함하지 마라.
 ```
 
@@ -255,7 +257,8 @@ notes/preflight-run-l16.md의 증거, 남은 blocker, 결제·재고 상태 전�
 - [ ] `## Review-ready 판정`이 ready·conditional ready·not ready 중 하나를 근거와 함께 선택하는가?
 - [ ] preflight 실행 기록, 남은 blocker, 사람 결정 항목을 구분하는가?
 - [ ] rollback과 reviewer notes가 실제 diff 또는 커밋 증거에 연결되는가?
-- [ ] `it.fails()`와 정책 보류가 있으면 일반 ready로 과장하지 않았는가?
+- [ ] 확인된 위험·미결·미실행 검증을 일반 ready의 근거로 과장하지 않았는가?
+- [ ] 리뷰 순서와 준비 상태가 preflight·diff·정책 근거로 설명되는가?
 - [ ] 커밋에는 `docs/`, `notes/`, `.github/`만 포함되고 앱·테스트·패키지 파일은 없는가?
 
 ## 4. Self-check
