@@ -196,17 +196,40 @@ PR template은 앞으로 모든 PR이 채울 빈 양식이고, PR draft는 이�
 
 이번 draft는 Lab 8·12의 Issue와 계획, 주문·결제·재고 정책 문서를 참고 자료로 연결합니다. Risk와 Rollback Note에는 현재 diff·정책·검증 기록에서 확인한 사실을 각각 근거와 함께 남깁니다. 근거가 없거나 아직 확인하지 못한 내용은 `미확인`으로 표시합니다.
 
-#### 실행
+#### 수행 순서
+
+1. 특정 작업의 답이 없는 재사용 PR template을 먼저 만듭니다.
+2. 사람이 heading과 작성 경계를 확인합니다.
+3. `docs/prompts/pr-description.md`에 E1의 승인 범위와 E2의 실행 증거를 입력해 현재 PR draft를 작성합니다.
+
+#### 실행 1 — 재사용 PR template
 
 ```text
-docs/prompts/pr-description.md의 계약을 사용해 현재 PR 후보를 위한 빈 .github/pull_request_template.md와 이번 변경의 notes/pr-draft-l16.md를 작성해줘.
-template에는 Summary, Changed Files, Verification, Risk, Rollback Note, Reviewer Notes 여섯 H2만 두고, draft에는 같은 여섯 H2로 이번 diff와 정책·Issue·계획 근거를 작성해라.
-Verification은 notes/preflight-run-l16.md를 참조하고, 현재 diff·정책·실행 기록에서 확인한 위험과 미결을 Risk에 근거와 함께 적어라. 실행하지 않은 검증과 근거 없는 위험·rollback은 미확인으로 표시하고 앱 파일은 수정하지 마라.
+.github/pull_request_template.md에 Summary, Changed Files, Verification,
+Risk, Rollback Note, Reviewer Notes 여섯 H2의 빈 구조를 만들어줘.
+특정 작업의 답이나 실행 결과를 채우지 말고 앱 파일은 수정하지 마라.
+```
+
+#### 사람 확인 — template
+
+- [ ] template에는 여섯 빈 H2만 있고 특정 변경의 답이 없는가?
+- [ ] Verification과 Risk·Rollback을 서로 다른 근거로 작성할 수 있는가?
+- [ ] 다음 PR에서도 그대로 재사용할 수 있는가?
+
+#### 실행 2 — 현재 PR draft
+
+```text
+@docs/prompts/pr-description.md를 사용해 E1에서 사람이 승인한 PR 범위와
+@notes/preflight-run-l16.md, 현재 diff와 실행한 검증 결과를 대조하고,
+@.github/pull_request_template.md 구조로 notes/pr-draft-l16.md를 작성해줘.
+
+Issue·계획·관련 정책의 위치를 연결하고, 실행하지 않은 검증·기대 실패·미결 정책을
+일반 통과로 쓰지 마라. 근거 없는 위험과 rollback은 미확인으로 표시하고
+앱 파일은 수정하지 마라.
 ```
 
 #### 검증
 
-- [ ] template에는 여섯 빈 H2만 있고 특정 변경의 답이 없는가?
 - [ ] draft의 Verification이 실행·미실행 검증을 구분하고 preflight 실행 기록을 참조하는가?
 - [ ] Risk와 Rollback Note가 근거를 가리키며, 확인하지 못한 내용은 미확인으로 구분하는가?
 - [ ] Rollback Note와 Reviewer Notes가 실제 diff·커밋 근거를 벗어나지 않는가?
