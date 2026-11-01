@@ -1,0 +1,9 @@
+{
+  "lecture": "03",
+  "required": [
+    { "path": "notes/task-boundary.md" }
+  ],
+  "optional": [],
+  "runAppChecks": false,
+  "cleanWorktreePaths": ["src", "tests"]
+}

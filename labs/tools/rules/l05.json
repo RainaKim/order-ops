@@ -1,0 +1,9 @@
+{
+  "lecture": "05",
+  "required": [
+    { "path": "notes/order-status-plan.md" }
+  ],
+  "optional": [],
+  "runAppChecks": false,
+  "cleanWorktreePaths": ["src", "tests"]
+}

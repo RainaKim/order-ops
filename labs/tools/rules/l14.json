@@ -1,0 +1,10 @@
+{
+  "lecture": "14",
+  "required": [
+    { "path": "notes/assertion-review-l14.md" },
+    { "path": "tests/payments.test.ts" },
+    { "path": "tests/admin.test.ts" }
+  ],
+  "optional": [],
+  "runAppChecks": true
+}

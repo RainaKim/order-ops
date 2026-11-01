@@ -1,0 +1,9 @@
+{
+  "lecture": "11",
+  "required": [
+    { "path": "notes/session-handoff.md" }
+  ],
+  "optional": [],
+  "runAppChecks": false,
+  "cleanWorktreePaths": ["src", "tests"]
+}

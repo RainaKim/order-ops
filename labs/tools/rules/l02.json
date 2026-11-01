@@ -1,0 +1,10 @@
+{
+  "lecture": "02",
+  "required": [
+    { "path": "notes/order-status-request.md" },
+    { "path": "notes/pending-decisions.md", "minItems": 3 },
+    { "path": "notes/next-actions.md", "minItems": 1 }
+  ],
+  "optional": [],
+  "runAppChecks": false
+}

@@ -1,0 +1,9 @@
+{
+  "lecture": "13",
+  "required": [
+    { "path": "notes/error-log-l13.md" },
+    { "path": "docs/checklists/hallucination-guard.md", "minItems": 5 }
+  ],
+  "optional": [],
+  "runAppChecks": true
+}

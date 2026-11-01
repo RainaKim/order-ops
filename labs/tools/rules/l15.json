@@ -1,0 +1,14 @@
+{
+  "lecture": "15",
+  "required": [
+    {
+      "path": "docs/retry-stop-matrix.md",
+      "fixedHeadings": ["# 결제 실패 처리 매트릭스", "## 변경 전 확인"],
+      "sectionMinItems": [
+        { "heading": "## 변경 전 확인", "minItems": 6 }
+      ]
+    }
+  ],
+  "optional": [],
+  "runAppChecks": true
+}

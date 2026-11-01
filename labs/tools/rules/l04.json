@@ -1,0 +1,8 @@
+{
+  "lecture": "04",
+  "required": [
+    { "path": "AGENTS.md", "fixedHeadings": ["## Project Overview", "## Before Editing", "## Commands", "## Rules", "## Before Final Response"] }
+  ],
+  "optional": [],
+  "runAppChecks": false
+}

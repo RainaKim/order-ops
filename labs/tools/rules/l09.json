@@ -1,0 +1,8 @@
+{
+  "lecture": "09",
+  "required": [
+    { "path": "docs/templates/implementation-plan.md", "fixedHeadings": ["## Goal", "## Files to Change", "## Files to Read First", "## Steps", "## Tests to Add or Update", "## Risks", "## Out of Scope", "## Stop Conditions"] }
+  ],
+  "optional": [],
+  "runAppChecks": false
+}

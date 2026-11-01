@@ -1,0 +1,12 @@
+{
+  "lecture": "20",
+  "allowLongReadme": true,
+  "required": [
+    { "path": "notes/incident-l20.md" },
+    { "path": "notes/pr-final-l20.md" },
+    { "path": "docs/agentic-workflow-starter-kit.md" },
+    { "path": "notes/backlog-l20.md" }
+  ],
+  "optional": [],
+  "runAppChecks": true
+}

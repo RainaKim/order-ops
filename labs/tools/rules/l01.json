@@ -1,0 +1,8 @@
+{
+  "lecture": "01",
+  "required": [
+    { "path": "labs/fixtures/lecture01-transcript.md" }
+  ],
+  "optional": [],
+  "runAppChecks": false
+}
